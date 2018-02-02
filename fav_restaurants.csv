@@ -1,0 +1,112 @@
+student_num,name,location,cuisine,fav_dish,cost_per_person,yearly_visits,last_visit
+1,Pho So 1,9135 W Broad St,Vietnamese,Beef pho,10,8,Aug-17
+1,Korean Garden,6827 Midlothian Turnpike,Korean,Bulgogi,20,2,Dec-17
+1,Vietnam One,6215 W Broad St,Vietnamese,Bun bo,10,3,Nov-17
+1,Can Can Brasserie,3120 W Cary St,French/breakfast,Egg Benedict,10,1,Nov-17
+1,Sen,2901 W Cary St,Vietnamese/French,Broken rice with steak,15,3,Nov-17
+1,Zzaam,3300 W Cary St,Korean,Bibimbap,10,5,Jan-18
+2,Pho So 1,Richmond,Vietnamese,Chicken Pho,14,1,Jan-18
+2,Vietnam 1,Richmond,Vietnamese,Broken Rice,15,8,Nov-17
+2,Burger Bach,Richmond,American,Goat Cheese Burger,11,1,Sep-17
+2,Zzaam,Richmond,Korean,Korean Bowl,13,3,Nov-17
+2,Greek on Cary,Richmond,Greek,Lamb Gyro,17,1,Oct-17
+2,Chadar Thai,Richmond,Thailand,Pad Thai,12,3,Jan-17
+3,Chadar Thai,"""Richmond, VA""",Thai,Pad See Ew,15,5,2017
+3,Pho so 1,"""Richmond, VA""",Vietnamese,Pho,10,4,2018
+3,Vietnam 1,"""Richmond, VA""",Vietnamese,Broken rice,10,7,2017
+3,Ful Kee,"""Richmond, VA""",Chinese,Dumplings,18,0.5,2016
+3,Mai Sushi,"""Richmond, VA""",Japanese,Bento box,18,2,2017
+3,Bonchon,"""Richmond, VA""",Korean,Chicken combo set,15,2,2017
+4,dhall ,Richmond.VA,buffet ,wings ,10,200,1/25/18
+4,peter cheng ,Richmond.VA,Chinese ,hot pot ,18,5,1/15/18
+4,pho ,Richmond.VA,Asian,beef noodles,13,3,1/16/18
+4,wingstop,Chicago.IL,American ,wings ,10,3,12/20/17
+4,mcdonalds,richmond.VA,fast food,cheeseburger,6,10,1/20/18
+5,Peter Chang,"Richmond, VA",Chinese,Kung Pao Chicken,20,8,17-Nov
+5,Mai sushi,"Richmond, VA",Japanese,Spicy Scallop Roll,20,5,17-Oct
+5,Little Sheep Hot Pot,Washington DC,Chinese,Beef,25,1,17-Dec
+5,Lemaire,"Richmond, VA",American,Sea food chowder25,25,1,17-Mar
+5,Boathouse Grill,"Richmond, VA",American,Grilled Shrimp,15,1,17-May
+5,Quan jude,"Beijing,China",Chinese,Roast Duck,30,2,18-Jan
+6,Chipotle,7000 Forest Ave,Mexican,Steak Burrito,7.5,30,1/20/18
+6,Jersey Mike's,7000 Forest Ave,Italian,Classic Sandwich,9,5,11/27/17
+6,Nuevo Mexico,3088 Stony Point Rd.,Mexican,Huevos Rancheros,7,1,1/24/18
+6,Wendy's,4805 W Broad St,Fast Food,Baconator,6,7,11/29/17
+6,Chick-fil-a,1601 Willow Lawn drive,fast food,Spicy Chicken Sandwich,6,15,1/21/18
+6,Taco Bell,3088 Stony Point Drive,fast food,Taco,5.5,1,10/31/18
+7,Zzaams ,"Richmond, VA",Korean,Bowl,10,15,2018
+7,Bonchon,"Henrico, VA",Korean,Strips,15,6,2017
+7,Peking Gourmet,"Falls Church, VA",Chinese ,Orange Chicken ,30,1,2015
+7,Chipotle Test Kitchen ,"New York, NY",Mexican ,Bowl,10,1,2017
+7,Hisho Sushi,"Richmond, VA",Japanese ,Eel Roll ,10,60,2018
+7,Sweet Frog,"Falls Church, VA",Sweets,Sugar Free Vanilla ,10,4,2017
+8,Pane E Bene,"Westport, CT",Italian,Shrimp scampi,30,30,Jan. 10
+8,Tarantino's,"Westport, CT",Italian,Chicken scarpiello,35,25,Dec. 18
+8,Gabriel's,"Greenwich, CT",Italian Steakhouse,Filet,75,15,Jan. 7
+8,Joseph's,"Bridgeport, CT",Steakhouse,Porterhouse,55,5,Nov. 29
+8,Brick and Wood,"Fairfield, CT",Pizza,White pizza,25,15,Jan. 4
+8,Molto,"Fairfield, CT",Italian ,Carbonara,25,15,Jan. 2
+9,P. F. Changs,"Stony Point Mall Richmond, VA",Asian,Shrimp Lo-mein,15,2,Summer 2017
+9,Chick-fil-A,"White Oak Village Henrico, VA",American fast food,Chicken sandwich,8,10,Summer 2017
+9,Plaza Azteca,"Richmond, VA",Mexican,Rice and Beans,10,5,Winter 2017
+9,Kona Grill,"Glen Allen, VA",Asian-American,Dumplings,15,1,Spring 2016
+9,Sweet Tea's,"Richmond, VA",Soul food,Cabbage,15,1,Summer 2015
+9,Carini's,"Henrico, VA",Italian,Calzone,12,12,Winter 2018
+10,Buffalo Wild Wings,"Westminster, MD",American,Wings,10,10,Dec-17
+10,Maggies,"Westminster, MD",American,Chicken Chesapeake,20,5,Jan-18
+10,Don Pablos,"Owings Mills, MD",Mexican,Quesidillas,10,2,7/26/17
+10,Chipotle,"Richmond, VA",Mexican,Burrito,10,24,Jan-18
+10,Sakura,"Westminster, MD",Japanese,Sushi,30,5,Aug-17
+10,Fogo De Chao,"Baltimore, MD",Steakhouse,Steak,60,1,Feb-17
+11,Fresh ,"Little Silver, NJ",Italian ,Salon Burger,14,3,15-Dec
+11,Seabright Pizza,"Seabright, NJ",Pizza,Grandma's Pizza,11,5,9-Jan
+11,Angelica's,"Seabright, NJ",Italian,Ravioli ,18,2,23-Oct
+11,Little Szechouan ,"Little Silver, NJ",Chinese ,General Taos,11,5,8-Jul
+11,Barnacle Bills,"Fair Haven, NJ",Burgers ,Bacon Cheese burger ,8,4,5-Dec
+11,Eddies ,"Little Silver, NJ ",Breakfast/Diner,Bacon Grilled Cheese,8,6,10-Dec
+12,Blaze pizza,"Monroeville, PA",Pizza,BYO pizza,10,8,December 
+12,Madero Cantina,"Murrysville, PA",Mexican,Queso,15,12,December 
+12,Eleven,"Pittsburgh, PA",American,Mussels,30,5,August
+12,Ramen Bar,"Pittsburgh, PA",Japenese,Shoyu Ramen,15,4,December 
+12,Oishii Bento,"Pittsburgh, PA",Japenese/Korean,Beef Bento Box,15,5,July
+12,Waffalonia,"Pittsburgh, PA",Desserts,Nutella Waffle ,8,8,January 
+13,Mellow Mushroom,Carrytown,Italian/American,Pizza,14,1,Over a Year
+13,Huddle House,"Bedford, VA",American,Pancakes,6,6,August
+13,Happy Coffee,"Bedford, VA",American,Cheescake,3,2,January
+13,Mom Siam's,Carrytown,Thai,Drunken Noodles,10.5,1,November
+13,La Cabana,Richmond,Mexican,Quesadia,7.5,4,April
+13,The Cellar,UR,Mixed,Cajun Noodles,9,4,December
+14,"""Benny's Pizza""","Roanoke, VA",Pizza,Onion/mushroom,5,12,20/12/17
+14,"""Alejandro's""","Roanoke, VA",Mexican,Mole Pollo,14,3,13/7/17
+14,"""WIldflower Cafe""","Roanoke, VA",Whole Food,Parthenon Wrap,12,4,5/1/17
+14,"""El Rodeo""","Roanoke, VA",Mexican,Fajitas,12,5,23/12/17
+15,Bonchon,"Richmond, VA",Korean,strips,20,10,18-Jan
+15,Tequilas,"Philadelphia, PA",Mexican,Molcajete de carne,30,1,17-May
+15,Double Knot,"Philadelphia, PA",Asian,cod fried rice,30,2,17-Dec
+15,Barbeque Exchange,"Gordonsville, VA",Barbeque,pulled pork,15,2,17-Nov
+15,Taco Bell,"Richmond, VA",Mexican,beef quesarito,10,20,18-Jan
+15,Akida,"Richmond, VA",Asian,spicy tuna roll,20,2,17-Oct
+16,Nacho Mamas,"Richmond, VA",Tex-Mex,Enchiladas,13,8,Dec-17
+16,Pulcinellas,"McLean, VA",Italian,Veal Marsala,20,4,Jan-18
+16,TacoDeli,"Austin, TX",Tex-Mex,Cowboy Taco,7,10,Jan-18
+16,Kerbey Lane Cafe,"Austin, TX",American,Pancakes,6,3,Dec-17
+16,Austin's Pizza,"Austin, TX",Pizza,Cheese Pizza,9,10,Dec-17
+16,Hopdoddy Burger Bar,"Austin, TX",Burgers,Classic burger & milkshake,13,3,Jul-17
+17,The Daily,"Richmond, VA",American,Tacos,15,4,Aug-17
+17,Continental Westhampton,"Richmond, VA",American,Breakfast pizza,10,4,Aug-17
+17,Lemongrass,"Annapolis, MD",Thai,Pad thai,15,4,Jan-15
+17,Hapa,"Denver, CO",Japanese/Sushi,Caterpillar roll,15,2,Mar-17
+17,Stuzzi,"Richmond, VA",Italian,Margherita pizza,17,1,Dec-17
+17,Zinburger,"Charlottesville, VA",American,Burger,10,2,May-17
+19,Roasting Company ,"Charlotte, NC",Roasted Chicken ,Chicken and Black Bean Combo ,10,25,Jan-18
+19,Moe's ,"Charlotte, NC",Mexican ,Wrong Doug ,10,10,Yesterday
+19,Nikkos ,"Charlotte, NC",Japanese ,Sushi ,30,1,Aug-18
+19,Mama's Fish House ,"Paia, HI",Fish ,Wahoo ,30,1,Aug-17
+19,Yafo,"Charlotte, NC",Mediteranian ,Hummus Bowl,10,5,Jan-18
+19,Libbie Market,"Charlotte, NC",American ,Number 5 sandwhich ,10,10,Jan-18
+20,Pit and the Peel,"Richmond, VA",Fresh food,Asian quinoa bowl,8,10,Jan-18
+20,Sticky Rice,"Richmond, VA",Asian,Sticky balls,15,4,Jan-18
+20,Xitomate,"Ellicott City, MD",Mexican,Guacamole,15,2,Jan-17
+20,Mosaic,"Richmond, VA",American,Mac and Cheese,15,2,Apr-17
+20,Victoria Gastro Pub,"Ellicott City, MD",European,Flatbread,20,1,Jan-17
+20,La Tagliatella,"Seville, Spain",Italian,Pasta,17,5,Nov-17
