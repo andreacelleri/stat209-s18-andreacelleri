@@ -3,7 +3,7 @@ title: "My first markdown"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, messege=FALSE, error=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(readr)
 library(dplyr)
@@ -16,17 +16,19 @@ library(forcats)
 
 The data represents a list of students' favorite resturants and their characteristics.
 
-```{r}
-fav_restaurants <- read_csv("C:\\Users\\ac4fi\\Desktop\\fav_restaurants.csv")
+```{r, messege=FALSE, error=FALSE}
+fav_restaurants <- read_csv("https://raw.githubusercontent.com/URstats/stat209-s18-andreacelleri/master/fav_restaurants.csv")
 
 ```
 ## Plotting the Data
 
 Plot shows the relationship between yearly visits and cost per person of the restaurant. 
 
-``` {r}
+``` {r, messege=FALSE, error=FALSE}
 ggplot(fav_restaurants, aes(yearly_visits,cost_per_person,)) +
-  geom_point()
+  theme_bw() +
+  geom_point() +
+  labs(y="Cost per Person", x="Times Visited per Year", Title= "Relationship between Cost and Times Visited")
 
 ```
 ### Plotting Data
@@ -35,6 +37,7 @@ Shows the location of the students' favorite restaurants by location.
 
 ``` {r}
 ggplot(fav_restaurants, aes(location)) +
+  theme_bw() +
   geom_bar()
 
 ``` 
@@ -42,6 +45,7 @@ ggplot(fav_restaurants, aes(location)) +
 
 ``` {r}
 ggplot(fav_restaurants, aes(cuisine))+
+  theme_bw() +
   geom_bar()
 
 ```
