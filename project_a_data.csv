@@ -1,81 +1,81 @@
-,name,country,city,visitors_2016, visitors_2015 ,size,year_established,metro_access,public
-1,Louvre,france,paris,7400000,8600000,large,1793,yes ,yes
-2,Metropolitan Museum of Art,usa,new york city ,7006859,6533106,large,1870,yes ,yes
-3,British Museum,united kingdom ,london,6420395,6820686,large,1753,yes ,yes
-4,National Gallery,united kingdom ,london,6262839,5908254,large,1824,yes ,yes
-5,Vatican Museums,italy,vatican city,6066649,6002251,large,1506,yes ,yes
-6,Tate Modern,united kingdom ,london,5839197,4712581,medium,2000,yes ,yes
-7,National Gallery of Art,usa,"washigton, D.C",4261391,4104331,large,1937,yes ,yes
-8,State Hermitage Museum,russia,saint petersburg,4119103,3668031,large,1764,yes ,yes
-9,Reina Sofia,spain,madrid,3646598,3249591,large,1992,yes ,yes
-10,Somerset House,united kingdom ,london,3443220,3235104,large,1776,yes ,yes
-11,Galleria degli Uffizi,italy,florence,3365302,1971146,large,1581,no,yes
-12,Musze National d'Art Moderne,france,paris,3335509,1738089,medium,1947,yes ,no
-13,Museo del Prado,spain,madrid,3033754,2696666,large,1891,yes ,yes
-14,Victoria and Albert Museum,united Kingdom ,london,3022086,3432325,large,1852,yes ,yes
-15,Musee d'Orsay,france,paris,3000000,3440000,large,1986,yes ,no
-16,Museum of Modern Art,usa,new york city ,2788236,3084624,medium,1929,yes ,no
-17,National Gallery of Victoria,Australia,Melbourne,2668000,2411311,large,1861,no,yes
-18,Russian Museum,russia,Saint Petersburg,2528550,2000000,medium,1895,no,no
-19,Rijksmuseum,netherlands,Amsterdam,2500000,2345666,large,1800,yes ,yes
-20,Tretyakov Gallery,russia,Moscow,2325759,1344915,large,1856,n/a,no
-21,Museo Soumaya,Mexico,Mexico City,2246000,1615224,medium,1994,yes ,no
-22,Centro Cultural Banco do Brasil,brazil,Rio de Janeiro,2216000,1026509,large,1989,yes ,yes
-23,Van Gogh Museum,netherlands,Amsterdam,2100000,1908744,small,1973,no,no
-24,National Portrait Gallery,united kingdom ,london,1949330,2145486,medium,1856,yes ,yes
-25,National Galleries of Scotland,united kingdom ,Edinburgh,1810000,2148242,large,1856,yes ,yes
-26,Art Institute of Chicago,usa,Chicago,1800000,1550000,large,1879,yes ,no
-27,Los Angeles County Museum of Art,usa,Los Angeles,1600000,1041395,medium ,1910,no,no
-28,J. Paul Getty Museum,usa,Los Angeles,1570000,2039226,medium,1974,no,no
-29,Centro Cultural Banco do Brasil,brazil,Brasilia,1468818,1415397,medium,1989,no,yes
-30,Galleria dell'Accademia,italy,Florence,1461185, -   ,small,1784,no,no
-31,Fine Arts Museums of San Francisco,usa,San Francisco,1402000,1500761,small,1972,no,yes
-32,Dali Theatre and Museum,spain,Figueres,1368755,1162124,medium,1974,yes ,no
-33,Art Gallery of New South Wales,australia,Sydney,1349000,140429,large,1874,yes ,yes
-34,Royal Academy of Arts,united Kingdom ,london,1285000,1096608,large,1768,yes ,no
-35,Royal Ontario Museum,Canada,Toronto,1267000,1065471,large,1912,yes ,yes
-36,Kelvingrove Art Gallery and Museum,united Kingdom ,Glasgow,1259318,1261552,large,1901,yes ,yes
-37,Queensland Art Gallery/GoMA,australia,brisbane,1240000,1181861,medium,1895,yes ,yes
-38,MCA Australia,australia,sydney,1206000,250000,medium,1991,yes ,no
-39,SAAM/National Portrait Gallery,usa,"washigton, D.C",1200000,1300000,medium,1856,yes ,yes
-40,Serpentine Galleries,united kingdom ,london,1187000,995335,small,1970,yes ,yes
-41,National Museum of Modern and Contemporary Art,south korea,seoul,1171780,1101565,medium,1969,no,yes
-42,Guggenheim Museum,usa,new york city ,1169000,873402, small ,1937,yes ,no
-43,Museum of Fine Arts,usa,boston,1164000,1192567, large ,1870,yes ,yes
-44,National Museum of Western Art,japan,tokyo,1162000,1914880, small ,1959,yes ,no
-45,Belvedere,austria,vienna,1154000,1126954, large ,1891,no,yes
-46,Musee du quai Branly,france,paris,1151000,1301277, large ,2006,yes ,yes 
-47,Pushkin State Museum of Fine Arts,russia,moscow,1133200, -   , large ,1909,no,yes
-48,Grand Palais,france,paris,1130000,1738089, large ,1900,yes ,yes
-49,Tate Britain,United Kingdom ,London,1081542,1284519, large ,1897,yes ,yes 
-50,Thyssen-Bornemisza Museum,spain,Madrid,1064835,965491, large ,1992,yes ,no
-51,National Art Museum of China,China,beijing,1050000,1190000, large ,1958,yes ,yes
-52,Museo di Capodimonte,italy,naples,1007564,, large ,1757,no,yes
-53,Saatchi Gallery,united Kingdom ,London,1003000,1576511, large ,1985,yes ,yes
-54,Centro Cultural Banco do Brasil,brazil,sao paulo,965000,1268560, medium ,1989,no,yes
-55,Museum of Fine Arts,usa,houston,960000,892827, large ,1900,yes ,yes
-56,Museu Picasso,spain,barcelona,954000,765471, small ,1963,yes ,no
-57,Montreal Museum of Fine Arts,canada,montreal,933000,942463, large ,1860,yes ,yes
-58,Ullens Center for Contemporary Art,china,beijing,921950,760106, medium ,2007,no,yes
-59,Ashmolean Museum,united kingdom ,oxford,910419,840249, large ,1683,yes ,yes
-60,Art Gallery of Ontario,canada,toronto,873000,762110, large ,1900,yes ,no
-61,Museo Egizio,italy,turin,852095,757961, medium ,2004,no,yes
-62,ARoS Aarhus Kunstmuseum,Denmark,Aarhus,835000,, medium ,1859,no,yes
-63,National Portrait Gallery,australia,canberra,820000,, medium ,1998,no,yes 
-64,Philadelphia Museum of Art,usa,philadelphia,792936,751797, large ,1876,no,yes
-65,Art Gallery of South Australia,australia,adelaide,780000,757286, medium ,1881,yes , yes
-66,Musee de l'Orangerie,france,Paris,780000,770000, small ,1852,yes ,no
-67,Kunsthistorisches Museum,austria,vienna,769000,767413, large ,1891,no,yes
-68,Minneapolis Institute of Art,usa,minneapolis,767000,752000, large ,1883,no,yes
-69,Renwick Gallery,usa,"washigton, D.C",765000,, medium ,1661,no,yes
-70,National Gallery of Ireland,ireland,dublin,755000,718637, large ,1864,yes ,yes
-71,CaixaForum Barcelona,spain,barcelona,753944,775020,small,2002,yes ,no
-72,The Broad,usa,los Angeles,753252,200000, medium ,2015,no,no
-73,Neues Museum,germany,berlin,740000,726000, large ,1855,no,yes
-74,National Gallery of Australia,australia,canberra,723000,399127, small ,1967,no,yes
-75,Pergamon Museum,germany,berlin,712000,750000, large ,1901,yes ,yes
-76,Louisiana Museum of Modern Art,denmark,humlebaek,705854,724580, small ,1958,no,no
-77,Cleveland Museum of Art,usa,cleveland,700000,642000, medium ,1913,no,yes
-78,Hirshhorn Museum,usa,"washigton, D.C",659000,44000, small ,1974,yes ,yes
-79,Stedelijk Museum Amsterdam,netherlands,amsterdam,650000,724257, medium ,1874,yes ,yes
-80,Royal Museums of Fine Arts of Belgium,belgium,brussels,497000,767355, large ,1803,no,yes
+name,country,city,visitors_2016, visitors_2015 ,size,year_established,metro_access,public
+Louvre,france,paris,7400000,8600000,large,1793,yes ,yes
+Metropolitan Museum of Art,usa,new york city ,7006859,6533106,large,1870,yes ,yes
+British Museum,united kingdom ,london,6420395,6820686,large,1753,yes ,yes
+National Gallery,united kingdom ,london,6262839,5908254,large,1824,yes ,yes
+Vatican Museums,italy,vatican city,6066649,6002251,large,1506,yes ,yes
+Tate Modern,united kingdom ,london,5839197,4712581,medium,2000,yes ,yes
+National Gallery of Art,usa,"washigton, D.C",4261391,4104331,large,1937,yes ,yes
+State Hermitage Museum,russia,saint petersburg,4119103,3668031,large,1764,yes ,yes
+Reina Sofia,spain,madrid,3646598,3249591,large,1992,yes ,yes
+Somerset House,united kingdom ,london,3443220,3235104,large,1776,yes ,yes
+Galleria degli Uffizi,italy,florence,3365302,1971146,large,1581,no,yes
+Musze National d'Art Moderne,france,paris,3335509,1738089,medium,1947,yes ,no
+Museo del Prado,spain,madrid,3033754,2696666,large,1891,yes ,yes
+Victoria and Albert Museum,united Kingdom ,london,3022086,3432325,large,1852,yes ,yes
+Musee d'Orsay,france,paris,3000000,3440000,large,1986,yes ,no
+Museum of Modern Art,usa,new york city ,2788236,3084624,medium,1929,yes ,no
+National Gallery of Victoria,Australia,Melbourne,2668000,2411311,large,1861,no,yes
+Russian Museum,russia,Saint Petersburg,2528550,2000000,medium,1895,no,no
+Rijksmuseum,netherlands,Amsterdam,2500000,2345666,large,1800,yes ,yes
+Tretyakov Gallery,russia,Moscow,2325759,1344915,large,1856,n/a,no
+Museo Soumaya,Mexico,Mexico City,2246000,1615224,medium,1994,yes ,no
+Centro Cultural Banco do Brasil,brazil,Rio de Janeiro,2216000,1026509,large,1989,yes ,yes
+Van Gogh Museum,netherlands,Amsterdam,2100000,1908744,small,1973,no,no
+National Portrait Gallery,united kingdom ,london,1949330,2145486,medium,1856,yes ,yes
+National Galleries of Scotland,united kingdom ,Edinburgh,1810000,2148242,large,1856,yes ,yes
+Art Institute of Chicago,usa,Chicago,1800000,1550000,large,1879,yes ,no
+Los Angeles County Museum of Art,usa,Los Angeles,1600000,1041395,medium ,1910,no,no
+J. Paul Getty Museum,usa,Los Angeles,1570000,2039226,medium,1974,no,no
+Centro Cultural Banco do Brasil,brazil,Brasilia,1468818,1415397,medium,1989,no,yes
+Galleria dell'Accademia,italy,Florence,1461185,0,small,1784,no,no
+Fine Arts Museums of San Francisco,usa,San Francisco,1402000,1500761,small,1972,no,yes
+Dali Theatre and Museum,spain,Figueres,1368755,1162124,medium,1974,yes ,no
+Art Gallery of New South Wales,australia,Sydney,1349000,140429,large,1874,yes ,yes
+Royal Academy of Arts,united Kingdom ,london,1285000,1096608,large,1768,yes ,no
+Royal Ontario Museum,Canada,Toronto,1267000,1065471,large,1912,yes ,yes
+Kelvingrove Art Gallery and Museum,united Kingdom ,Glasgow,1259318,1261552,large,1901,yes ,yes
+Queensland Art Gallery/GoMA,australia,brisbane,1240000,1181861,medium,1895,yes ,yes
+MCA Australia,australia,sydney,1206000,250000,medium,1991,yes ,no
+SAAM/National Portrait Gallery,usa,"washigton, D.C",1200000,1300000,medium,1856,yes ,yes
+Serpentine Galleries,united kingdom ,london,1187000,995335,small,1970,yes ,yes
+National Museum of Modern and Contemporary Art,south korea,seoul,1171780,1101565,medium,1969,no,yes
+Guggenheim Museum,usa,new york city ,1169000,873402, small ,1937,yes ,no
+Museum of Fine Arts,usa,boston,1164000,1192567, large ,1870,yes ,yes
+National Museum of Western Art,japan,tokyo,1162000,1914880, small ,1959,yes ,no
+Belvedere,austria,vienna,1154000,1126954, large ,1891,no,yes
+Musee du quai Branly,france,paris,1151000,1301277, large ,2006,yes ,yes 
+Pushkin State Museum of Fine Arts,russia,moscow,1133200,0, large ,1909,no,yes
+Grand Palais,france,paris,1130000,1738089, large ,1900,yes ,yes
+Tate Britain,United Kingdom ,London,1081542,1284519, large ,1897,yes ,yes 
+Thyssen-Bornemisza Museum,spain,Madrid,1064835,965491, large ,1992,yes ,no
+National Art Museum of China,China,beijing,1050000,1190000, large ,1958,yes ,yes
+Museo di Capodimonte,italy,naples,1007564,0, large ,1757,no,yes
+Saatchi Gallery,united Kingdom ,London,1003000,1576511, large ,1985,yes ,yes
+Centro Cultural Banco do Brasil,brazil,sao paulo,965000,1268560, medium ,1989,no,yes
+Museum of Fine Arts,usa,houston,960000,892827, large ,1900,yes ,yes
+Museu Picasso,spain,barcelona,954000,765471, small ,1963,yes ,no
+Montreal Museum of Fine Arts,canada,montreal,933000,942463, large ,1860,yes ,yes
+Ullens Center for Contemporary Art,china,beijing,921950,760106, medium ,2007,no,yes
+Ashmolean Museum,united kingdom ,oxford,910419,840249, large ,1683,yes ,yes
+Art Gallery of Ontario,canada,toronto,873000,762110, large ,1900,yes ,no
+Museo Egizio,italy,turin,852095,757961, medium ,2004,no,yes
+ARoS Aarhus Kunstmuseum,Denmark,Aarhus,835000,0, medium ,1859,no,yes
+National Portrait Gallery,australia,canberra,820000,0, medium ,1998,no,yes 
+Philadelphia Museum of Art,usa,philadelphia,792936,751797, large ,1876,no,yes
+Art Gallery of South Australia,australia,adelaide,780000,757286, medium ,1881,yes , yes
+Musee de l'Orangerie,france,Paris,780000,770000, small ,1852,yes ,no
+Kunsthistorisches Museum,austria,vienna,769000,767413, large ,1891,no,yes
+Minneapolis Institute of Art,usa,minneapolis,767000,752000, large ,1883,no,yes
+Renwick Gallery,usa,"washigton, D.C",765000,0, medium ,1661,no,yes
+National Gallery of Ireland,ireland,dublin,755000,718637, large ,1864,yes ,yes
+CaixaForum Barcelona,spain,barcelona,753944,775020,small,2002,yes ,no
+The Broad,usa,los Angeles,753252,200000, medium ,2015,no,no
+Neues Museum,germany,berlin,740000,726000, large ,1855,no,yes
+National Gallery of Australia,australia,canberra,723000,399127, small ,1967,no,yes
+Pergamon Museum,germany,berlin,712000,750000, large ,1901,yes ,yes
+Louisiana Museum of Modern Art,denmark,humlebaek,705854,724580, small ,1958,no,no
+Cleveland Museum of Art,usa,cleveland,700000,642000, medium ,1913,no,yes
+Hirshhorn Museum,usa,"washigton, D.C",659000,44000, small ,1974,yes ,yes
+Stedelijk Museum Amsterdam,netherlands,amsterdam,650000,724257, medium ,1874,yes ,yes
+Royal Museums of Fine Arts of Belgium,belgium,brussels,497000,767355, large ,1803,no,yes
