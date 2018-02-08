@@ -1,0 +1,113 @@
+---
+title: "Project A"
+author: "Andrea Celleri"
+output: html_notebook
+---
+
+**BELOW ARE INSTRUCTIONS FOR HOW TO COMPLETE THE ASSIGNMENT;
+MAKE SURE THAT YOU DELETE ALL OF THE COMMENTS IN ALL CAPS
+(AS WELL AS THIS COMMENT), BEFORE SUBMITTING**
+
+IN THE FIRST CHUNK HERE, WHICH SHOULD BE SET TO NOT BE INCLUDED IN THE REPORT,
+KEEP THIS knit LINE AND ALSO LOAD ALL OF THE LIBRARIES YOU NEED
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(readr)
+library(ggplot2)
+library(dplyr)
+
+```
+
+# Art Museums 
+
+## Overview
+
+PUT AN INTRODUCTORY PARAGRAPH HERE GIVING IN 4-5 SENTENCES
+THE BASIC IDEA OF YOUR DATA COLLECTION TASK AND HOW YOU WENT
+ABOUT IT. INCLUDE THE OVERARCHING RESEARCH QUESTION DESCRIBING
+WHY YOU WERE INTERESTED IN THIS DATA
+
+## Data dictionary
+
+Here is a data dictionary for the museums dataset:
+
+- ****: Data Dictionary 
+- **name**: a character variable giving the full proper name of the art museum
+- **country**: a character variable giving the country of location of the restaurant as “Country”
+- **city**: a character variable giving the city of location of the restaurant as “City”
+- **visitors_2016**: numeric number of people that visited the an specific art museum during the year 2016. Use only whole numbers. If less than 1, round down to zero.
+- **visitors_2015**: numeric number of people that visited the an specific art museum during the year 2016. Use only whole numbers. If less than 1, round down to zero.
+-- **size**: a categorical variable describing the size of the art museum. Possible options are: 
+- ***"Small"***
+- ***"Medium"***:
+- ***"Large"***:
+- **year_established**: numeric number describing the year the art gallery was established. Format as “YYYY” with the four digit year.
+- **metro_access**: a categorical variable explaining the accessibility of the art museum via subway. Possible options are: "Yes", "No"
+- **public**: a categorical variable distinguishing if the art museum is publically owned. If yes, the art museum is owned by a government entity or accessible to the public with no charge. Possible options are: "Yes", "No"
+.
+
+Which can be read in as follows:
+
+YOU SHOULD UPLOAD THE FINAL DATASET AS A CSV FILE TO GITHUB, THEN FILL IN
+THE INFORMATION HERE (MAKE SURE TO CHANGE THE NAME OF THE DATANAME TO
+SOMETHING REASONABLE AND FOLLOWING OUR NAMING CONVENTIONS):
+
+```{r}
+museums <- read_csv("https://raw.githubusercontent.com/URstats/stat209-s18-andreacelleri/master/project_a_data.csv")
+museums
+```
+
+MAKE SURE TO PRINT OUT THE DATASET IN THE REPORT, AS THE CODE ABOVE WOULD DO
+
+## Exploratory Analysis
+
+NOW, IN ABOUT 2-3 PARAGRAPHS ALONG WITH A COUPLE OF EMBEDDED
+GRAPHS, EXPLORE A POTENTIALLY INTERESTING RELATIONSHIP IN THE
+DATASET. MAKE SURE THAT THE CODE TO CONSTRUCT THE PLOTS IS NOT INCLUDED IN THE
+REPORT. ALSO MAKE SURE THAT THE PLOTS ARE WOVEN INTO THE ANALYSIS AND NOT JUST
+DUMPED AT THE START OR END OF THE SECTION
+
+```{r, echo=FALSE}
+ggplot(museums, aes(country, fill=public)) +
+  theme_bw() +
+  geom_bar()+
+  labs(y= "Number of Museums", x="Country", title="Number of Museums by Country", fill= "Publically Owned") 
+  
+```
+```{r}
+
+ggplot(museums, aes(year_established, fill=country))+
+  theme_bw() +
+  geom_histogram()+
+  labs(y="Number of Museums", title="Number of Museums Established Per Year by Country", x="Year")
+
+```
+
+```{r}
+ggplot(museums, aes(visitors_2016,size)) +
+  theme_bw() +
+  geom_point() +
+  labs(x="Visitors", y="Size of Museum", title="Relationship between Size of Museum and Visitors")
+
+```
+
+
+## Conclusion
+
+WRITE JUST 2-4 SENTENCES DESCRIBING AT A HIGH LEVEL WHAT YOU LEARNED ABOUT
+YOUR RESEARCH QUESTION FROM THE ANALYSIS. IF APPLICABLE, DESCRIBE WHAT OTHER
+DATA OR VARIABLES YOU WOULD LIKE TO ADD TO LEARN MORE ABOUT THE QUESTION OF
+INTEREST.
+
+## References
+
+IF YOU GOT ANY DATA FROM A SOURCE THAT NEEDS TO BE CITED,
+INCLUDE PARANTHETICAL REFERENCES [SUCH AS: (Arnold, 2017)]
+IN THE TEXT AND CITATIONS HERE.
+
+AND THEN YOU ARE DONE (THOUGH AGAIN, PLEASE DELETE ALL OF THESE ANNOYING
+COMMENTS THAT I PUT IN ALL CAPS)
+
+
