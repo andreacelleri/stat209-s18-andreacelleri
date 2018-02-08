@@ -28,7 +28,7 @@ Art Institute of Chicago,USA,Chicago,1800000,1550000,Large,1879,Yes ,No
 Los Angeles County Museum of Art,USA,Los Angeles,1600000,1041395,Medium ,1910,No,No
 J. Paul Getty Museum,USA,Los Angeles,1570000,2039226,Medium,1974,No,No
 Centro Cultural Banco do Brasil,Brazil,Brasilia,1468818,1415397,Medium,1989,No,Yes
-Galleria dell'Accademia,Italy,Florence,1461185,0,Small,1784,No,No
+Galleria dell'Accademia,Italy,Florence,1461185,NA,Small,1784,No,No
 Fine Arts Museums of San Francisco,USA,San Francisco,1402000,1500761,Small,1972,No,Yes
 Dali Theatre and Museum,Spain,Figueres,1368755,1162124,Medium,1974,Yes ,No
 Art Gallery of New South Wales,Australia,Sydney,1349000,140429,Large,1874,Yes ,Yes
@@ -45,12 +45,12 @@ Museum of Fine Arts,USA,Boston,1164000,1192567, Large ,1870,Yes ,Yes
 National Museum of Western Art,Japan,Tokyo,1162000,1914880, Small ,1959,Yes ,No
 Belvedere,Austria,Vienna,1154000,1126954, Large ,1891,No,Yes
 Musee du quai Branly,France,Paris,1151000,1301277, Large ,2006,Yes ,Yes 
-Pushkin State Museum of Fine Arts,Russia,Moscow,1133200,0, Large ,1909,No,Yes
+Pushkin State Museum of Fine Arts,Russia,Moscow,1133200,NA, Large ,1909,No,Yes
 Grand Palais,France,Paris,1130000,1738089, Large ,1900,Yes ,Yes
 Tate Britain,United Kingdom ,London,1081542,1284519, Large ,1897,Yes ,Yes 
 Thyssen-Bornemisza Museum,Spain,Madrid,1064835,965491, Large ,1992,Yes ,No
 National Art Museum of China,China,Beijing,1050000,1190000, Large ,1958,Yes ,Yes
-Museo di Capodimonte,Italy,Naples,1007564,0, Large ,1757,No,Yes
+Museo di Capodimonte,Italy,Naples,1007564,NA, Large ,1757,No,Yes
 Saatchi Gallery,United Kingdom ,London,1003000,1576511, Large ,1985,Yes ,Yes
 Centro Cultural Banco do Brasil,Brazil,Sao Paulo,965000,1268560, Medium ,1989,No,Yes
 Museum of Fine Arts,USA,Houston,960000,892827, Large ,1900,Yes ,Yes
@@ -60,14 +60,14 @@ Ullens Center for Contemporary Art,China,Beijing,921950,760106, Medium ,2007,No,
 Ashmolean Museum,United Kingdom ,Oxford,910419,840249, Large ,1683,Yes ,Yes
 Art Gallery of Ontario,Canada,Toronto,873000,762110, Large ,1900,Yes ,No
 Museo Egizio,Italy,Turin,852095,757961, Medium ,2004,No,Yes
-ARoS Aarhus Kunstmuseum,Denmark,Aarhus,835000,0, Medium ,1859,No,Yes
-National Portrait Gallery,Australia,Canberra,820000,0, Medium ,1998,No,Yes 
+ARoS Aarhus Kunstmuseum,Denmark,Aarhus,835000,NA, Medium ,1859,No,Yes
+National Portrait Gallery,Australia,Canberra,820000,NA, Medium ,1998,No,Yes 
 Philadelphia Museum of Art,USA,Philadelphia,792936,751797, Large ,1876,No,Yes
 Art Gallery of South Australia,Australia,Adelaide,780000,757286, Medium ,1881,Yes , Yes
 Musee de l'Orangerie,France,Paris,780000,770000, Small ,1852,Yes ,No
 Kunsthistorisches Museum,Austria,Vienna,769000,767413, Large ,1891,No,Yes
 Minneapolis Institute of Art,USA,Minneapolis,767000,752000, Large ,1883,No,Yes
-Renwick Gallery,USA,"Washigton, D.C",765000,0, Medium ,1661,No,Yes
+Renwick Gallery,USA,"Washigton, D.C",765000,NA, Medium ,1661,No,Yes
 National Gallery of Ireland,Ireland,Dublin,755000,718637, Large ,1864,Yes ,Yes
 CaixaForum Barcelona,Spain,Barcelona,753944,775020,Small,2002,Yes ,No
 The Broad,USA,Los Angeles,753252,200000, Medium ,2015,No,No
