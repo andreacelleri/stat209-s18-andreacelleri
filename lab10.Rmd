@@ -1,0 +1,151 @@
+---
+title: "Lab 10: Filtering Data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(fig.height = 5)
+knitr::opts_chunk$set(fig.width = 8.5)
+knitr::opts_chunk$set(out.width = "100%")
+knitr::opts_chunk$set(dpi = 300)
+
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(viridis)
+theme_set(theme_minimal())
+```
+
+
+```{r}
+nba <- read_csv("https://statsmaths.github.io/stat_data/nba_elo_daily.csv")
+```
+
+Metadata from US senator's tweets:
+
+```{r}
+tweets <- read_csv("https://statsmaths.github.io/stat_data/senator_tweets_meta.csv")
+```
+
+
+```{r}
+tarantino <- read_csv("https://statsmaths.github.io/stat_data/tarantino.csv")
+```
+
+
+## Analysis
+
+Analyze tweets, primarily retweets, before and after the 2017 presidential elections. Relevant tweets analyzed obtained a minimum of 500 retweets. 
+
+The first graph presents a three month overview off all relevant tweets from senator’s from November 2016 to January 2017. 
+
+
+```{r}
+tweets_2017VA <- filter(tweets, date>= as.POSIXct("2016-11-01"), date<= as.POSIXct("2017-02-01"),state == "VA" )
+
+tweets_2017NY <- filter(tweets, date>= as.POSIXct("2016-11-01"), date<= as.POSIXct("2017-02-01"),state == "NY", retweets>=500)
+
+
+
+tweets_2017R <- filter(tweets, date>= as.POSIXct("2016-11-01"), date<= as.POSIXct("2017-02-01"), party == "R", retweets>= 500)
+
+tweets_2017I <- filter(tweets, date>= as.POSIXct("2016-11-01"), date<= as.POSIXct("2017-02-01"), party == "I", retweets>= 500)
+
+
+
+tweets_2017 <- filter(tweets, date >= as.POSIXct("2016-11-01"), date<= as.POSIXct("2017-02-01"), retweets>= 500)
+
+
+                      
+                    
+tweets_dparty <- filter(tweets,party== "D")
+
+ggplot(tweets_2017, aes(date,retweets))+
+  geom_point() +
+  labs(title="US Senator's Tweets")
+
+
+```
+
+For the same period, graph 2 separates tweets belonging a Republic (red) or Democrat (blue) senator. 
+ 
+
+```{r}
+
+ggplot(tweets_2017, aes(date,retweets))+
+  geom_point(color="blue") +
+  geom_point(color="black", data= tweets_2017I) +
+  geom_point(color="red", data = tweets_2017R)
+  
+```
+
+Graph 3, displays tweets from only Independent party senators. 
+
+```{r}
+ggplot(tweets_2017, aes(date,retweets))+
+  geom_point() +
+   geom_point(color="green", data= tweets_2017I)
+ 
+
+```
+
+Graph 4, presents tweets from NY senators in yellow. There was much more participation from NY senators during January than the other months. Some of the most popular tweets also belonged to NY senators including Senator Gillibrand's tweet on January 20, 2017. 
+
+
+annotate("text", x= as.POSIXct.date(2017-01-01), y=368413, label="Senator Gillibrand")
+
+```{r}
+
+ggplot(tweets_2017, aes(date,retweets))+
+  geom_point() +
+  geom_point(color="yellow", data=tweets_2017NY)
+  
+
+```
+
+Graph 5, is a more looks specifically at the month of January. The five top most retweeted tweets belonged to democratic or independent party senators. 
+
+
+```{r}
+tweets_jan2017 <- filter(tweets, date >= as.POSIXct("2017-01-01"), date<= as.POSIXct("2017-02-01"), retweets>= 500)
+
+tweets_janR <- filter(tweets, date>= as.POSIXct("2017-01-01"), date<= as.POSIXct("2017-02-01"), party == "R", retweets>= 500)
+
+tweets_janI <- filter(tweets, date>= as.POSIXct("2017-01-01"), date<= as.POSIXct("2017-02-01"), party == "I", retweets>= 500)
+
+
+
+
+ggplot(tweets_jan2017, aes(date,retweets))+
+  geom_point(color="blue") +
+   geom_point(color="green", data= tweets_janI)+
+  geom_point(color="red", data = tweets_janR)
+```
+
+Interestingly, there visually the graphs show higher volatility for tweets coming from the Republican and Liberal parties. The number of tweets from the Republican party declined drastically in December 2016 and then increased dramatically in January. A similar pattern can be seen for the liberal party, however, there the graph does not present a sharp decline for the liberal party at the end of January. On the other hand, the Democratic party has a more stable number of tweets during all the periods. 
+
+
+
+```{r}
+ggplot(tweets_2017, aes(date,retweets))+
+  geom_smooth(aes(color=party))
+```
+
+
+```{r}
+tweets_real2 <- filter(tweets, date >= as.POSIXct("2016-06-01"), date<= as.POSIXct("2017-02-01"), retweets>= 500)
+
+ggplot(tweets_real2, aes(date,retweets))+
+  geom_smooth(aes(color=party))
+```
+
+```{r}
+
+tweets_real <- filter(tweets, date >= as.POSIXct("2015-01-01"), date<= as.POSIXct("2017-02-01"), retweets>= 500)
+
+ggplot(tweets_real, aes(date,retweets))+
+  geom_smooth(aes(color=party))
+```
