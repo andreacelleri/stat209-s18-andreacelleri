@@ -4,110 +4,263 @@ author: "Andrea Celleri"
 output: html_notebook
 ---
 
-**BELOW ARE INSTRUCTIONS FOR HOW TO COMPLETE THE ASSIGNMENT;
-MAKE SURE THAT YOU DELETE ALL OF THE COMMENTS IN ALL CAPS
-(AS WELL AS THIS COMMENT), BEFORE SUBMITTING**
-
-IN THE FIRST CHUNK HERE, WHICH SHOULD BE SET TO NOT BE INCLUDED IN THE REPORT,
-KEEP THIS knit LINE AND ALSO LOAD ALL OF THE LIBRARIES YOU NEED
-
 ```{r setup, include=FALSE, message=FALSE, warning=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 
 library(readr)
 library(ggplot2)
 library(dplyr)
-
+library(forcats)
 ```
 
 # Art Museums 
 
 ## Overview
 
-PUT AN INTRODUCTORY PARAGRAPH HERE GIVING IN 4-5 SENTENCES
-THE BASIC IDEA OF YOUR DATA COLLECTION TASK AND HOW YOU WENT
-ABOUT IT. INCLUDE THE OVERARCHING RESEARCH QUESTION DESCRIBING
-WHY YOU WERE INTERESTED IN THIS DATA
+The overarching purpose of this dataset is to perform exploratory data analysis to increase the understanding of the relationship or patterns that exist between the top most visited art museums in the world. The museums that were chosen were based on the Art News Paper’s published figures of the most visited art museums in 2016. Once the museums were established, the other variables were located by researching each institution’s website or other databases. 
+
 
 ## Data dictionary
 
 Here is a data dictionary for the museums dataset:
 
-- ****: Data Dictionary 
 - **name**: a character variable giving the full proper name of the art museum
 - **country**: a character variable giving the country of location of the restaurant as “Country”
 - **city**: a character variable giving the city of location of the restaurant as “City”
 - **visitors_2016**: numeric number of people that visited the an specific art museum during the year 2016. Use only whole numbers. If less than 1, round down to zero.
 - **visitors_2015**: numeric number of people that visited the an specific art museum during the year 2016. Use only whole numbers. If less than 1, round down to zero.
 -- **size**: a categorical variable describing the size of the art museum. Possible options are: 
-- ***"Small"***
-- ***"Medium"***:
-- ***"Large"***:
+    - *"Small"*
+    - *"Medium"*
+    - *"Large"*
 - **year_established**: numeric number describing the year the art gallery was established. Format as “YYYY” with the four digit year.
-- **metro_access**: a categorical variable explaining the accessibility of the art museum via subway. Possible options are: "Yes", "No"
-- **public**: a categorical variable distinguishing if the art museum is publically owned. If yes, the art museum is owned by a government entity or accessible to the public with no charge. Possible options are: "Yes", "No"
+- **metro_access**: a categorical variable explaining the accessibility of the art museum via subway. Possible options are: 
+    - "Yes"
+    - "No"
+- **free**: a categorical variable distinguishing if the art museum is has no fee. If it is free, the art museum is owned by a government entity or accessible to the public with no charge. Possible options are: 
+    - "Yes"
+    - "No"
 .
 
 Which can be read in as follows:
-
-YOU SHOULD UPLOAD THE FINAL DATASET AS A CSV FILE TO GITHUB, THEN FILL IN
-THE INFORMATION HERE (MAKE SURE TO CHANGE THE NAME OF THE DATANAME TO
-SOMETHING REASONABLE AND FOLLOWING OUR NAMING CONVENTIONS):
 
 ```{r}
 museums <- read_csv("https://raw.githubusercontent.com/URstats/stat209-s18-andreacelleri/master/project_a_data.csv")
 museums
 ```
 
-MAKE SURE TO PRINT OUT THE DATASET IN THE REPORT, AS THE CODE ABOVE WOULD DO
 
 ## Exploratory Analysis
 
-NOW, IN ABOUT 2-3 PARAGRAPHS ALONG WITH A COUPLE OF EMBEDDED
-GRAPHS, EXPLORE A POTENTIALLY INTERESTING RELATIONSHIP IN THE
-DATASET. MAKE SURE THAT THE CODE TO CONSTRUCT THE PLOTS IS NOT INCLUDED IN THE
-REPORT. ALSO MAKE SURE THAT THE PLOTS ARE WOVEN INTO THE ANALYSIS AND NOT JUST
-DUMPED AT THE START OR END OF THE SECTION
+ The dataset was used to identify if museum size, metro access, and free entry directly impact the volume of people visiting art museums on a year to year basis.
+
+  First, the relationship between the number of art museums by country and city was analyzed. The first graph shows that the United States and the United Kingdom have the highest number of most visited art museums. To better understand where the museums were concentrated, the second graph shows the relationship between the number of museums and city. The graph revealed that even if the United States has the highest aggregated number of museums, they are dispersed in many cities around the country. Additionally, it is determined that Paris and London have the highest concentrations of museums followed by Washington D.C. Both graphs also provide additional information including the size of the museum by city and whether or not the admission is free. 
+
 
 ```{r, echo=FALSE}
-ggplot(museums, aes(country, fill=public)) +
+ggplot(museums, aes(fct_infreq(country), fill=free)) +
   theme_bw() +
   geom_bar()+
-  labs(y= "Number of Museums", x="Country", title="Number of Museums by Country", fill= "Publically Owned") 
+  labs(y= "Number of Museums", x="Country", title="Number of Museums by Country", fill= "Free") +
+  coord_flip()
   
 ```
 ```{r}
-
-ggplot(museums, aes(year_established, fill=country))+
+ggplot(museums, aes(fct_infreq(city), fill=size)) +
   theme_bw() +
-  geom_histogram()+
-  labs(y="Number of Museums", title="Number of Museums Established Per Year by Country", x="Year")
+  geom_bar()+
+  labs(y= "Number of Museums", x="City", title="Number of Museums by City", fill= "Size") +
+  coord_flip()
+```
+
+  Regarding the third graph, it shows the relationship between the size of the museum and the number of visitors in 2016. The graph shows that most of the “large” museums have the highest number of visitors. The relationship proves that the capacity of the museum might have an impact on the number of visitors it receives. 
+
+
+```{r}
+
+
+ggplot(museums, aes(visitors_2016,size)) +
+  theme_bw() +
+  geom_point(aes(size=visitors_2016, color=metro_access)) +
+  labs(x="Visitors", y="Size of Museum", title="Relationship between Size of Museum and Visitors")
+
 
 ```
 
-```{r}
-ggplot(museums, aes(visitors_2016,size)) +
-  theme_bw() +
-  geom_point() +
-  labs(x="Visitors", y="Size of Museum", title="Relationship between Size of Museum and Visitors")
+  The date the museum was established was also analyzed to see if it had a possible impact on the number of visitors. Graph 4, does not show any relationship between the two, however, it a larger dataset should be analyzed to better understand if there is a relationship between the two. 
 
+
+```{r}
+ggplot(museums, aes(year_established,visitors_2016)) +
+  theme_bw() +
+  geom_point(aes(size=visitors_2016, color=metro_access)) +
+  labs(x="Year", title="Relationship between Size of Museum and Visitors") +
+  annotate("text", x=1570, y=6066649, label="Vatican Museums", size=3)
+
+ 
+```
+
+  Last, the possible relationships between museums and time of establishment were analyzed. Graph 5 displays a histogram recording the number of museums established per year. There are three concentrated periods during which museum establishment was the most prominent. The first during 1750 to 1800, which could have been influenced by the Age of Reason which dominated Europe during that time. Countries where the museums were established during this time included the United Kingdom, Germany, France, and the Netherlands. The second period started around 1850 and ended around 1900.  Many Countries in Europe established prominent museums during this time, with the highest number established in the UK and the United States. We also had the Impressionism, Post-Impressionist and Neo-impressionist movements during this time. The third largest period started around 1960 to 2000. This massive number must have started after the two world wars that occurred. 
+
+
+```{r}
+ggplot(museums, aes(year_established, fill=country, color=country))+
+  theme_bw() +
+  geom_histogram(alpha=1/2)+
+  labs(y="Number of Museums", title="Number of Museums Established Per Year by Country", x="Year")
+```
+
+
+```{r}
+ggplot(museums, aes(visitors_2016,country)) +
+  theme_bw() +
+  geom_point (color="blue") +
+  geom_point(aes(visitors_2015,country))
 ```
 
 
 ## Conclusion
 
-WRITE JUST 2-4 SENTENCES DESCRIBING AT A HIGH LEVEL WHAT YOU LEARNED ABOUT
-YOUR RESEARCH QUESTION FROM THE ANALYSIS. IF APPLICABLE, DESCRIBE WHAT OTHER
-DATA OR VARIABLES YOU WOULD LIKE TO ADD TO LEARN MORE ABOUT THE QUESTION OF
-INTEREST.
+To conclude, this data analysis helped enhanced my understanding of which country or city has the highest number of most visited art museums. The data pointed out how museum size may have a role in the quantity of visitors per year. Furthermore, cost or available metro access did not show a relevant relationship. Also, the time when museums were established revealed some interesting trends. As shown previously, museums were established in three important periods including the age of reason, before the world wars, and after the world wars.  
+
+For future research, I would include a variable capturing weather or not the museum hosted a popular exhibition the previous year and how many visitors attended the exhibition. This variable could show whether or not it has a positive relationship with the number of visitors a museum receives from one year to the next. 
+
 
 ## References
 
-IF YOU GOT ANY DATA FROM A SOURCE THAT NEEDS TO BE CITED,
-INCLUDE PARANTHETICAL REFERENCES [SUCH AS: (Arnold, 2017)]
-IN THE TEXT AND CITATIONS HERE.
+About. (n.d.). Retrieved from http://www.serpentinegalleries.org/about
 
-AND THEN YOU ARE DONE (THOUGH AGAIN, PLEASE DELETE ALL OF THESE ANNOYING
-COMMENTS THAT I PUT IN ALL CAPS)
+Admission Fees - The Montreal Museum of Fine Arts. (n.d.). Retrieved from https://www.mbam.qc.ca/en/information/admission-fees/
+
+Art Gallery of Ontario. (2018, February 3). Retrieved from https://en.wikipedia.org/wiki/Art_Gallery_of_Ontario
+
+Art Gallery of South Australia. (2018, February 4). Retrieved from https://en.wikipedia.org/wiki/Art_Gallery_of_South_Australia
+
+The Art Institute of Chicago. (n.d.). Retrieved from http://www.artic.edu/
+
+The Broad. (n.d.). Retrieved from https://www.thebroad.org/visit/today
+
+CaixaForum Barcelona. (2018, February 2). Retrieved from https://en.wikipedia.org/wiki/CaixaForum_Barcelona
+
+Centro Cultural Banco do Brasil. (2017, June 11). Retrieved from https://en.wikipedia.org/wiki/Centro_Cultural_Banco_do_Brasil
+
+Exhibitions — Minneapolis Institute of Art. (n.d.). Retrieved from https://new.artsmia.org/exhibitions/
+
+FAMSF. (n.d.). Retrieved from https://www.famsf.org/
+
+Galleria dell'Accademia. (2017, December 24). Retrieved from https://en.wikipedia.org/wiki/Galleria_dell%27Accademia
+
+Gallery, S. (2017, September 27). Saatchi Gallery. Retrieved from http://www.saatchigallery.com/
+
+Grand Palais. (2018, January 15). Retrieved from https://en.wikipedia.org/wiki/Grand_Palais
+
+Grrr.nl. (n.d.). Stedelijk Museum Amsterdam. Retrieved from https://www.stedelijk.nl/en
+
+Hermitage Museum. (2018, February 1). Retrieved from https://en.wikipedia.org/wiki/Hermitage_Museum
+
+Home :: Art Gallery NSW. (n.d.). Retrieved from https://www.artgallery.nsw.gov.au/
+
+Home | The Museum of Fine Arts, Houston. (n.d.). Retrieved from https://www.mfah.org/
+
+Home. (n.d.). Retrieved from https://www.nationalgallery.ie/
+
+J. Paul Getty Museum | The Getty. (n.d.). Retrieved from http://www.getty.edu/museum/
+
+Kelvingrove Art Gallery and Museum. (2017, December 15). Retrieved from https://en.wikipedia.org/wiki/Kelvingrove_Art_Gallery_and_Museum
+
+Kunsthistorisches Museum. (2018, January 18). Retrieved from https://en.wikipedia.org/wiki/Kunsthistorisches_Museum
+
+Los Angeles County Museum of Art. (2018, January 6). Retrieved from https://en.wikipedia.org/wiki/Los_Angeles_County_Museum_of_Art
+
+Louisiana. (n.d.). Retrieved from https://en.louisiana.dk/
+
+Louvre Museum Official Website. (n.d.). Retrieved from https://www.louvre.fr/en
+
+Met Audio Guide Online. (n.d.). Retrieved from https://www.metmuseum.org/
+
+MoMA. (n.d.). Retrieved from https://www.moma.org/
+
+Museo di Capodimonte. (2017, December 18). Retrieved from https://en.wikipedia.org/wiki/Museo_di_Capodimonte
+
+Museo Nacional Centro de Arte Reina Sofía. (n.d.). Retrieved from http://www.museoreinasofia.es/en
+
+Museo Nacional del Prado. (n.d.). Retrieved from https://www.museodelprado.es/en
+
+Museo Nacional Thyssen-Bornemisza. (n.d.). Retrieved from https://www.museothyssen.org/en
+
+Museo Soumaya. (n.d.). Retrieved from http://www.soumaya.com.mx/index.php/esp
+
+Museum of Contemporary Art Australia. (2018, February 9). Retrieved from https://en.wikipedia.org/wiki/Museum_of_Contemporary_Art_Australia
+
+Museum of Fine Arts, Boston. (n.d.). Retrieved from http://www.mfa.org/
+
+Musée de l'Orangerie |. (n.d.). Retrieved from http://www.musee-orangerie.fr/en
+
+Musée d'Orsay. (2018, February 9). Retrieved from https://en.wikipedia.org/wiki/Mus%C3%A9e_d%27Orsay
+
+Musée du quai Branly - Jacques Chirac. (2018, January 9). Retrieved from https://en.wikipedia.org/wiki/Mus%C3%A9e_du_quai_Branly_-_Jacques_Chirac
+
+Musée National d'Art Moderne. (2017, November 30). Retrieved from https://en.wikipedia.org/wiki/Mus%C3%A9e_National_d%27Art_Moderne
+
+National Art Museum of China. (2017, July 19). Retrieved from https://en.wikipedia.org/wiki/National_Art_Museum_of_China
+
+National Gallery of Art. (n.d.). Retrieved from https://www.nga.gov/
+
+National Gallery of Art. (n.d.). Retrieved from https://www.nga.gov/
+
+National gallery of australia. (n.d.). National Gallery of Australia - Home. Retrieved from https://nga.gov.au/
+
+National Museum of Modern and Contemporary Art. (2017, October 17). Retrieved from https://en.wikipedia.org/wiki/National_Museum_of_Modern_and_Contemporary_Art
+
+National Museum of Western Art. (2017, December 25). Retrieved from https://en.wikipedia.org/wiki/National_Museum_of_Western_Art
+
+National Portrait Gallery, London. (2017, December 5). Retrieved from https://en.wikipedia.org/wiki/National_Portrait_Gallery,_London
+
+Neues Museum. (2017, December 14). Retrieved from https://en.wikipedia.org/wiki/Neues_Museum
+
+NGV. (n.d.). Retrieved from https://www.ngv.vic.gov.au/
+
+Pergamon Museum. (2018, January 22). Retrieved from https://en.wikipedia.org/wiki/Pergamon_Museum
+
+The Picasso Museum in Barcelona. (n.d.). Picasso Museum Barcelona | Official website. Retrieved from http://www.museupicasso.bcn.cat/en/
+
+The Pushkin State Museum of Fine Arts - Official site. (n.d.). Retrieved from http://www.arts-museum.ru/?lang=en
+
+Queensland Art Gallery. (2017, September 17). Retrieved from https://en.wikipedia.org/wiki/Queensland_Art_Gallery
+
+Rijksmuseum - Google Search. (n.d.). Retrieved from https://www.google.com/search?q=Rijksmuseum&oq=Rijksmuseum&aqs=chrome..69i57j69i58j69i60l2.1992j0j4&sourceid=chrome&ie=UTF-8
+
+Royal Academy of Arts. (n.d.). Retrieved from https://www.royalacademy.org.uk/
+
+Royal Museums of Fine Arts of Belgium. (2017, December 3). Retrieved from https://en.wikipedia.org/wiki/Royal_Museums_of_Fine_Arts_of_Belgium
+
+Russian Museum. (2018, February 4). Retrieved from https://en.wikipedia.org/wiki/Russian_Museum
+
+Solomon R. Guggenheim Museum. (2018, January 26). Retrieved from https://en.wikipedia.org/wiki/Solomon_R._Guggenheim_Museum
+
+Somerset House. (n.d.). Retrieved from https://www.somersethouse.org.uk/
+
+Stephen Thompson | Satyr, British Museum | The Met. (n.d.). Retrieved from https://www.metmuseum.org/art/collection/search/285957
+
+Tate. (n.d.). Tate. Retrieved from http://www.tate.org.uk/
+
+Tretyakov Gallery. (2018, January 30). Retrieved from https://en.wikipedia.org/wiki/Tretyakov_Gallery
+
+Uffizi Gallery Museum in Florence. Uffizi Tickets & Tours. (n.d.). Retrieved from http://www.uffizi.org/
+
+Ullens Center for Contemporary Art. (2017, November 21). Retrieved from https://en.wikipedia.org/wiki/Ullens_Center_for_Contemporary_Art
+
+Vatican Museums. (2018, February 7). Retrieved from https://en.wikipedia.org/wiki/Vatican_Museums
+
+Victoria and Albert Museum. (2018, February 7). Retrieved from https://en.wikipedia.org/wiki/Victoria_and_Albert_Museum
+
+Visit the museum about Vincent van Gogh in Amsterdam - The Netherlands - Van Gogh Museum. (n.d.). Retrieved from https://www.vangoghmuseum.nl/en
+
+Visit the Renwick Gallery. (n.d.). Retrieved from https://americanart.si.edu/visit/renwick
+
+Visitor Figures 2016. (n.d.). Retrieved from https://www.theartnewspaper.com/visitor-figures-2016
+
+Welcome | Ashmolean Museum. (n.d.). Retrieved from https://www.ashmolean.org/
+
 
 
