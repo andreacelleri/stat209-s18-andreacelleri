@@ -18,6 +18,7 @@ library(dplyr)
 library(viridis)
 library(forcats)
 library(smodels)
+library(ggrepel)
 theme_set(theme_minimal())
 ```
 
@@ -105,7 +106,7 @@ to the first set of points and/or jitter the y-axis of the labels):
 ggplot(bird_line, aes(male_mass_median, egg_mass_median)) +
          geom_point(position=position_jitter(width = NULL, height = NULL)) +
             geom_point(color= "red", data=bird_more_5) +          
-              geom_text(data=bird_more_5, aes(label=type), size=3, color= "red", size= 2, vjust= -.5) +
+              geom_text_repel(data=bird_more_5, aes(label=type), size=3, color= "red", size= 2, vjust= -.5) +
          scale_x_log10()+
          scale_y_log10() 
 ```
