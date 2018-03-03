@@ -1,0 +1,145 @@
+---
+title: "Chicago"
+author: "Andrea Celleri"
+output: html_notebook
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+
+knitr::opts_chunk$set(fig.width = 7)
+knitr::opts_chunk$set(fig.height = 4)
+
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(ggmap)
+library(viridis)
+library(forcats)
+library(ggmap)
+library(smodels)
+
+install.packages(ggmap)
+library(ggmap)
+```
+
+
+```{r}
+tracts <- read_csv("https://raw.githubusercontent.com/statsmaths/stat_data/gh-pages/acs_tract_data_2016.csv.gz")
+```
+
+##Filters
+
+```{r}
+
+acs_chicago <- filter(tracts, state == "Illinois", cbsa == "Chicago-Naperville-Elgin, IL-IN-WI")
+
+cook_county <- filter(acs_chicago, county %in% c("Cook County"), lat>41.4, lat<42.3, lon<87.7)
+
+
+top_6_US <- filter(tracts, cbsa %in% c("New York-Newark-Jersey City, NY-NJ-PA","Los Angeles-Long Beach-Anaheim, CA", "Chicago-Naperville-Elgin, IL-IN-WI", "Houston-The Woodlands-Sugar Land, TX", "Phoenix-Mesa-Scottsdale, AZ" , "Philadelphia-Camden-Wilmington, PA-NJ-DE-MD" ))
+
+
+top_6_white_majority <- filter(top_6_US, race_white >55)
+top_6_black_majority <- filter(top_6_US, race_black>55)
+top_6_asia_majority <- filter(top_6_US, race_asian>55)
+top_6_other_majority <- filter(top_6_US, race_other>55)
+
+acs_chicago_white_majority <- filter(acs_chicago, race_white >55)
+acs_chicago_black_majority <- filter(acs_chicago, race_black>55)
+acs_chicago_asian_majority <- filter(acs_chicago, race_asian>55)
+acs_chicago_other_majority <- filter(acs_chicago, race_other>55)
+
+acs_chicago$income_000_100 <- acs_chicago$income_000_010 +acs_chicago$income_010_015 + acs_chicago$income_015_020 + acs_chicago$income_020_025 + acs_chicago$income_030_035 + acs_chicago$income_035_040 + acs_chicago$income_040_045 +acs_chicago$income_045_050 + acs_chicago$income_050_060 + acs_chicago$income_060_075 +acs_chicago$income_075_100 
+
+acs_chicago_black_majority$income_000_100 <- acs_chicago_black_majority$income_000_010 +acs_chicago_black_majority$income_010_015 + acs_chicago_black_majority$income_015_020 + acs_chicago_black_majority$income_020_025 + acs_chicago_black_majority$income_030_035 + acs_chicago_black_majority$income_035_040 + acs_chicago_black_majority$income_040_045 +acs_chicago_black_majority$income_045_050 + acs_chicago_black_majority$income_050_060 + acs_chicago_black_majority$income_060_075 +acs_chicago_black_majority$income_075_100 
+
+acs_chicago_white_majority$income_000_100 <- acs_chicago_white_majority$income_000_010 +acs_chicago_white_majority$income_010_015 + acs_chicago_white_majority$income_015_020 + acs_chicago_white_majority$income_020_025 + acs_chicago_white_majority$income_030_035 + acs_chicago_white_majority$income_035_040 + acs_chicago_white_majority$income_040_045 +acs_chicago_white_majority$income_045_050 + acs_chicago_white_majority$income_050_060 + acs_chicago_white_majority$income_060_075 +acs_chicago_white_majority$income_075_100 
+
+top_6_US$income_000_100 <- top_6_US$income_000_010 +top_6_US$income_010_015 + top_6_US$income_015_020 + top_6_US$income_020_025 + top_6_US$income_030_035 + top_6_US$income_035_040 + top_6_US$income_040_045 +top_6_US$income_045_050 + top_6_US$income_050_060 + top_6_US$income_060_075 +top_6_US$income_075_100 
+
+top_6_black_majority$income_000_100 <- top_6_black_majority$income_000_010 +top_6_black_majority$income_010_015 + top_6_black_majority$income_015_020 + top_6_black_majority$income_020_025 + top_6_black_majority$income_030_035 + top_6_black_majority$income_035_040 + top_6_black_majority$income_040_045 +top_6_black_majority$income_045_050 + top_6_black_majority$income_050_060 + top_6_black_majority$income_060_075 +top_6_black_majority$income_075_100 
+
+top_6_white_majority$income_000_100 <- top_6_white_majority$income_000_010 +top_6_white_majority$income_010_015 + top_6_white_majority$income_015_020 + top_6_white_majority$income_020_025 + top_6_white_majority$income_030_035 + top_6_white_majority$income_035_040 + top_6_white_majority$income_040_045 +top_6_white_majority$income_045_050 + top_6_white_majority$income_050_060 + top_6_white_majority$income_060_075 +top_6_white_majority$income_075_100 
+
+```
+
+#Report 
+
+For some time, Chicago has been depicted as one of the most problematic cities in the United States. With crime increasing, economic development stagnating within communities, and quality of institutional services dependent among the many issues affecting the city.  Many of these are linked to the noticeable segregation, specifically between the predominantly white and predominantly black communities. However, how does primarily black populations fair in Chicago when compared with five other cities in the United States? Is it a city issue or a country issue?
+
+Prior to the Fair Housing act in 1968, African Americans could be legally forced to live in separate neighborhoods. The consequences of policy prior to that time are still visible in cities around the country. To visualize this trend, I plotted the six biggest cities by population in the United States including New York City, Chicago, Los Angeles, Houston, Phoenix, and Philadelphia (“US City Population 2018”). Then I identified census blocks that were dominated by a specific race. If 55 percent of a block belonged to a specific race, it was considered dominated by that race. The results are displayed below. 
+
+
+
+```{r}
+
+ 
+ggplot(top_6_US, aes(lon, lat)) +
+    geom_point( alpha = 0.2) +
+  scale_color_viridis(option= "D") +
+  geom_point(data = top_6_white_majority, color="brown", alpha = 0.2)+
+  geom_point(data = top_6_black_majority , color="blue", alpha = 0.4) +
+  geom_point(data = top_6_asia_majority , color="red", alpha = 0.5) +
+  geom_point(data = top_6_other_majority, color="orange", alpha = 0.4) +
+  geom_text(aes(label = label), data = data_frame(lon = -87.25, lat = 41.9, cbsa = "Chicago-Naperville-Elgin, IL-IN-WI", label = "Chicago's South Side", color="blue")) +
+  facet_wrap(~cbsa, scales = "free")
+
+```
+
+
+
+In the graph, each color represents a specific race; blue for black race, brown for white race, red for Asian race, and orange for another race. While, areas in gray represent census blocks that are not dominated by any particular race. As seen, every city except Phoenix has blocks which are dominated by a particular race other than white. Some cities like Los Angeles, have higher populations of Asians as well as Hispanics. Other cities like Philadelphia have very are primarily segregated between whites and blacks. 
+
+
+We then looked at two characteristics that are descriptive of segregation; income and cost of rent. We wanted to compare how racially dominated communities, specifically the black and white communities, faired in comparison with the rest of the city. In Chicago, there are 1936 blocks white an average of 62% white and 21% blacks.  From the 1936 blocks, there are 1306 blocks that are dominated by whites with a white race mean of 80 percent. On the other hand, there are 337 blocks dominated by blacks with a black race mean of 87 percent. With this in mind, we looked at income earned by the three groups and performed similar comparisons for the other five cities mentioned before.
+
+We divided income in three groups; earning between 0 and 100 thousand dollars, between 100 and 200 thousand dollars, and between 200 and 999 thousand dollars. We than focused on the portion of the population that earned 100 to 200 thousand dollars and plotted the city values against both of the racially dominant blocks. The findings are shown below. 
+
+
+
+```{r}
+ggplot( top_6_US, aes(income_100_125 + income_125_150 + income_150_200 , fill= cbsa)) +
+  geom_density( col= NA , alpha= .3) +
+  geom_density(data=top_6_black_majority, alpha=0.1) +
+  geom_density(data=top_6_white_majority, alpha=0.1, color="brown", show.legend = FALSE) +
+  facet_wrap(~cbsa) +
+  labs(x="Percentage of People Earning $100 to $200 Thousand", title= "Percentage of People Earning 100 to 200 Thousand by Race by CBSA", y= "Density", legend =  "City")
+```
+
+
+The finding show that in Chicago, around 51 percent of the population in each block earn between 100 and 200 thousand dollars. The white blocks have an average of 53 percent of their population earning this amount. However, the black blocks only have around 18 percent of their households earning this amount. In the graph, this is represented by the left-hand skew on plot representing the black community. A similar pattern can be seen in Houston and Philadelphia. However, in Los Angeles the difference is not as prominent. A factor that can be influencing this difference can be caused by the small percentage of blocks that are dominated by blacks in Los Angeles. Out of 2843 blocks, there are only 46 blocks with predominantly black households. 
+
+The difference is more prominent when comparing percentage of households that make between 200 and 999 thousand dollars. Around 10 percent of households in block in Chicago earn this amount, compared to 14 and 2 percent of white and black blocks respectively. 
+
+To compare this data, we also looked at median cost of rent. For all of Chicago, the mean cost of rent gotten from the median rent of each block was 1142 dollars. In predominantly white blocks it was 1230 and in predominantly black blocks it was 922. The differences are not as prominent and a similar trend occurs in Houston, New York, and Philadelphia. In Los Angeles, there is a steeper difference where the city’s mean of median rent is 1497 compared to 1191. 
+
+
+```{r}
+
+ggplot( top_6_US, aes(median_rent, fill= cbsa)) +
+  geom_density( col= NA , alpha= .4 ) +
+  geom_density(data=top_6_black_majority, alpha=0.1) +
+  geom_density(data=top_6_white_majority, color= "brown", alpha=.1, show.legend = FALSE) +
+  geom_text(aes(label = label, y = density), data = data_frame(density = 0.002, median_rent = 2050, cbsa = "Chicago-Naperville-Elgin, IL-IN-WI", label = "Primarily black households")) +
+  facet_wrap(~cbsa) 
+
+
+```
+
+Even though Chicago has a long history of black and white segregation, its data looks similar to that of other large cities in the country. In cases like Los Angeles, which superficially the difference between these groups is not as large looking at other minorities in these cities might provide a different story.  
+
+Yes, Chicago is still one of the most segregated cities in the country. Its segregation has deeper roots than other cities. William Frey observed that even after the Fair Housing Act in cities like Chicago, “old stereotypes persisted about which communities were appropriate for whites and blacks, with whites expressing a strong distaste for integrated neighborhoods” (Frey). However, other cities follow similar patterns. Segregation is not a distant problem, it happens all around the country.  
+
+
+
+## References
+
+Frey, William. "Glimpses of a Ghetto-Free Future." The New Republic, 26 Nov. 2014, newrepublic.com/article/120385/black-white-segregation-steadily-declining.
+
+"US City Populations 2018." 2018 World Population by Country, worldpopulationreview.com/us-cities/.
+
+
+
