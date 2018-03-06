@@ -30,7 +30,7 @@ library(ggmap)
 tracts <- read_csv("https://raw.githubusercontent.com/statsmaths/stat_data/gh-pages/acs_tract_data_2016.csv.gz")
 ```
 
-##Filters
+##Filter
 
 ```{r}
 
@@ -124,7 +124,8 @@ ggplot( top_6_US, aes(median_rent, fill= cbsa)) +
   geom_density(data=top_6_black_majority, alpha=0.1) +
   geom_density(data=top_6_white_majority, color= "brown", alpha=.1, show.legend = FALSE) +
   geom_text(aes(label = label, y = density), data = data_frame(density = 0.002, median_rent = 2050, cbsa = "Chicago-Naperville-Elgin, IL-IN-WI", label = "Primarily black households")) +
-  facet_wrap(~cbsa) 
+  facet_wrap(~cbsa) +
+  labs(x="Median Rent Distribution", title= "Median Rent by Race by CBSA", y= "Density", legend =  "City")
 
 
 ```
