@@ -68,9 +68,9 @@ top_6_white_majority$income_000_100 <- top_6_white_majority$income_000_010 +top_
 
 #Report 
 
-For some time, Chicago has been depicted as one of the most problematic cities in the United States. With crime increasing, economic development stagnating within communities, and quality of institutional services dependent among the many issues affecting the city.  Many of these are linked to the noticeable segregation, specifically between the predominantly white and predominantly black communities. However, how does primarily black populations fair in Chicago when compared with five other cities in the United States? Is it a city issue or a country issue?
+For some time, Chicago has been depicted as one of the most problematic cities in the United States. Some issues facing the city today include increasing crime rates, stagnating economic development and depleting institutional services. These issues many times are linked to the noticeable segregation, specifically between the predominantly white and predominantly black communities. However, how does primarily black populations fair in Chicago when compared with five other cities in the United States? Is it a city issue or a country issue?
 
-Prior to the Fair Housing act in 1968, African Americans could be legally forced to live in separate neighborhoods. The consequences of policy prior to that time are still visible in cities around the country. To visualize this trend, I plotted the six biggest cities by population in the United States including New York City, Chicago, Los Angeles, Houston, Phoenix, and Philadelphia (“US City Population 2018”). Then I identified census blocks that were dominated by a specific race. If 55 percent of a block belonged to a specific race, it was considered dominated by that race. The results are displayed below. 
+Prior to the Fair Housing act of 1968, African Americans could be legally forced to live in separate neighborhoods. The consequences of the policy prior to that time are still visible in cities around the country. To visualize this trend, I plotted the six biggest cities by population in the United States including New York City, Chicago, Los Angeles, Houston, Phoenix, and Philadelphia (“US City Population 2018”). Then I identified census blocks that were dominated by a specific race. If 55 percent of a block belonged to a specific race, it was considered dominated by that race. The results are displayed below.
 
 
 
@@ -89,32 +89,38 @@ ggplot(top_6_US, aes(lon, lat)) +
 
 ```
 
+In the graph, each color represents a specific race; blue for the black race, brown for the white race, red for Asian race, and orange for another race. Furthermore, areas in gray represent census blocks that are not dominated by any particular race. As seen, every city except Phoenix has blocks which are dominated by a particular race other than white. Some cities like Los Angeles, have higher populations of Asians as well as Hispanics. Other cities like Philadelphia have been primarily segregated between whites and blacks.
 
+I then looked at two characteristics that are associated with segregation; income and cost of rent. I wanted to compare how racially dominated communities, specifically the black and white communities, faired in comparison with the rest of the city. In Chicago, there are 1936 blocks with a total average of 62 percent white and 21 percent blacks. From the 1936 blocks, there are 1306 blocks that are dominated by whites with a white race mean of 80 percent. On the other hand, there are 337 blocks dominated by blacks with a black race mean of 87 percent. With this in mind, we looked at income earned by the city and the two groups and performed similar comparisons for the other five cities mentioned before.
 
-In the graph, each color represents a specific race; blue for black race, brown for white race, red for Asian race, and orange for another race. While, areas in gray represent census blocks that are not dominated by any particular race. As seen, every city except Phoenix has blocks which are dominated by a particular race other than white. Some cities like Los Angeles, have higher populations of Asians as well as Hispanics. Other cities like Philadelphia have very are primarily segregated between whites and blacks. 
-
-
-We then looked at two characteristics that are descriptive of segregation; income and cost of rent. We wanted to compare how racially dominated communities, specifically the black and white communities, faired in comparison with the rest of the city. In Chicago, there are 1936 blocks white an average of 62% white and 21% blacks.  From the 1936 blocks, there are 1306 blocks that are dominated by whites with a white race mean of 80 percent. On the other hand, there are 337 blocks dominated by blacks with a black race mean of 87 percent. With this in mind, we looked at income earned by the three groups and performed similar comparisons for the other five cities mentioned before.
-
-We divided income in three groups; earning between 0 and 100 thousand dollars, between 100 and 200 thousand dollars, and between 200 and 999 thousand dollars. We than focused on the portion of the population that earned 100 to 200 thousand dollars and plotted the city values against both of the racially dominant blocks. The findings are shown below. 
+For this analysis income was divided into three groups; earning between zero and 100 thousand dollars, between 100 and 200 thousand dollars, and between 200 and 999 thousand dollars. In this case, the focus was on the percentage of the population that earned 100 to 200 thousand dollars. The city's values and the predominantly black and white blocks are plotted against each other below. 
 
 
 
 ```{r}
-ggplot( top_6_US, aes(income_100_125 + income_125_150 + income_150_200 , fill= cbsa)) +
+
+top_6_US$income_100_200 <- top_6_US$income_100_125 + top_6_US$income_125_150 + top_6_US$income_150_200
+top_6_white_majority$income_100_200 <- top_6_white_majority$income_100_125 + top_6_white_majority$income_125_150 + top_6_white_majority$income_150_200
+top_6_black_majority$income_100_200 <- top_6_black_majority$income_100_125 + top_6_black_majority$income_125_150 + top_6_black_majority$income_150_200
+
+ggplot( top_6_US, aes(income_100_200 , fill= cbsa)) +
   geom_density( col= NA , alpha= .3) +
   geom_density(data=top_6_black_majority, alpha=0.1) +
   geom_density(data=top_6_white_majority, alpha=0.1, color="brown", show.legend = FALSE) +
+  facet_wrap(~cbsa) +
+  geom_text(aes(label = label, y = density), data = data_frame(density = 0.053, income_100_200 = 20, cbsa = "Chicago-Naperville-Elgin, IL-IN-WI", label = "Primarily black households")) +
+  geom_text(aes(label = label, y = density), data = data_frame(density = 0.04, income_100_200 = 38, cbsa = "Chicago-Naperville-Elgin, IL-IN-WI", label = "Primarily white households"), color= "brown") +
   facet_wrap(~cbsa) +
   labs(x="Percentage of People Earning $100 to $200 Thousand", title= "Percentage of People Earning 100 to 200 Thousand by Race by CBSA", y= "Density", legend =  "City")
 ```
 
 
-The finding show that in Chicago, around 51 percent of the population in each block earn between 100 and 200 thousand dollars. The white blocks have an average of 53 percent of their population earning this amount. However, the black blocks only have around 18 percent of their households earning this amount. In the graph, this is represented by the left-hand skew on plot representing the black community. A similar pattern can be seen in Houston and Philadelphia. However, in Los Angeles the difference is not as prominent. A factor that can be influencing this difference can be caused by the small percentage of blocks that are dominated by blacks in Los Angeles. Out of 2843 blocks, there are only 46 blocks with predominantly black households. 
+The graph shows that in Chicago, around 51 percent of the population in each block earn between 100 and 200 thousand dollars. Similarly, white blocks have an average of 53 percent of households earning between 100 and 200 thousand dollars represented by the brown line on each plot.  However, predominantly black blocks only have around 18 percent of their households earning this amount which is represented by the left-hand skew on the black line representing the black community. A similar pattern can be seen in Houston and Philadelphia. However, in Los Angeles, the difference is not as prominent. A factor that can be influencing this difference is the small percentage of blocks that are dominated by blacks in Los Angeles. Out of 2843 blocks, there are only 46 blocks with predominantly black households.
 
-The difference is more prominent when comparing percentage of households that make between 200 and 999 thousand dollars. Around 10 percent of households in block in Chicago earn this amount, compared to 14 and 2 percent of white and black blocks respectively. 
+The difference is more prominent when comparing the percentage of households that make between 200 and 999 thousand dollars. Around 10 percent of households in a block in Chicago earn this amount, compared to 14 and 2 percent of white and black blocks respectively.
 
-To compare this data, we also looked at median cost of rent. For all of Chicago, the mean cost of rent gotten from the median rent of each block was 1142 dollars. In predominantly white blocks it was 1230 and in predominantly black blocks it was 922. The differences are not as prominent and a similar trend occurs in Houston, New York, and Philadelphia. In Los Angeles, there is a steeper difference where the city’s mean of median rent is 1497 compared to 1191. 
+To compare this data, we also looked at the median cost of rent. For all of Chicago, the mean cost of rent gotten from the median rent for each block was 1142 dollars. For the predominantly white blocks the mean of the median cost of rent was 1230 and in predominantly black blocks it was 922. The differences are not as prominent in Houston, New York, and Philadelphia.
+
 
 
 ```{r}
@@ -123,16 +129,16 @@ ggplot( top_6_US, aes(median_rent, fill= cbsa)) +
   geom_density( col= NA , alpha= .4 ) +
   geom_density(data=top_6_black_majority, alpha=0.1) +
   geom_density(data=top_6_white_majority, color= "brown", alpha=.1, show.legend = FALSE) +
-  geom_text(aes(label = label, y = density), data = data_frame(density = 0.002, median_rent = 2050, cbsa = "Chicago-Naperville-Elgin, IL-IN-WI", label = "Primarily black households")) +
+  geom_text(aes(label = label, y = density), data = data_frame(density = 0.0025, median_rent = 2050, cbsa = "Chicago-Naperville-Elgin, IL-IN-WI", label = "Primarily black households")) +
+  facet_wrap(~cbsa) +
+  geom_text(aes(label = label, y = density), data = data_frame(density = 0.001, median_rent = 2300, cbsa = "Chicago-Naperville-Elgin, IL-IN-WI", label = "Primarily white households"), color = "brown") +
   facet_wrap(~cbsa) +
   labs(x="Median Rent Distribution", title= "Median Rent by Race by CBSA", y= "Density", legend =  "City")
 
 
 ```
 
-Even though Chicago has a long history of black and white segregation, its data looks similar to that of other large cities in the country. In cases like Los Angeles, which superficially the difference between these groups is not as large looking at other minorities in these cities might provide a different story.  
-
-Yes, Chicago is still one of the most segregated cities in the country. Its segregation has deeper roots than other cities. William Frey observed that even after the Fair Housing Act in cities like Chicago, “old stereotypes persisted about which communities were appropriate for whites and blacks, with whites expressing a strong distaste for integrated neighborhoods” (Frey). However, other cities follow similar patterns. Segregation is not a distant problem, it happens all around the country.  
+Yes, Chicago is still one of the most segregated cities in the United States. Its segregation has deeper roots than other cities, however, similar patterns can be observed in separate parts of the country. In cases like Los Angeles, where the superficial difference is not as prevalent between whites and blacks, looking at other minorities might provide a different story. Segregation is a complicated problem with no straightforward solution.
 
 
 
