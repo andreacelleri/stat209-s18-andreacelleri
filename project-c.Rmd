@@ -1,0 +1,129 @@
+---
+title: "Richmond Coffee"
+author: "Andrea Celleri"
+output: html_document
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(out.width = "100%")
+knitr::opts_chunk$set(dpi = 300)
+
+knitr::opts_chunk$set(fig.height = 5)
+knitr::opts_chunk$set(fig.width = 8.5)
+
+
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(ggmap)
+library(viridis)
+library(forcats)
+library(smodels)
+```
+
+
+```{r}
+coffee <- read_csv("https://raw.githubusercontent.com/URstats/stat209-s18-andreacelleri/master/coffee.csv")
+```
+
+The dataset use the following fields:
+- type: categorical variable that represents the type of drink including cappuccino, latte, espresso, or coffee (drip coffee) 
+- price: numerical variable that describes the price of the drink in dollars. 
+- size: numerical variable that describes the size of the drink in ounces  
+
+
+## Introduction
+
+There is a huge market for coffee in the United States that is visible in the availability and diversity of coffee related products in Richmond. With a handful of roaster, coffee shops, coffee houses and bars there is a diversified supply of coffee that satisfy the demand. Being a coffee enthusiast myself, I was curious to analyze and understand more about the coffee industry in Richmond and how it fits into the overall country’s data.
+
+I was curious to understand the variations that exist between prices and sizes of the coffees offered in each location. The three hypotheses that will be tested include:
+
+
+**a.**	The price of a coffee drink is positively related to the size of the drink.
+**b.**	The price of coffee drinks is a function of the price of espresso.
+**c. **	Coffee (American drip style coffee) is the least expensive coffee drink. 
+
+
+
+## Methods
+
+The data collected was retrieved two ways. The first, method used Yelp, a crowd-sourced review hub available online, to find the descriptive menus for coffee shops in the Richmond area. Since the exact price and size (oz.) of the samples were required, 13 out of the 100 menus analyzed provided all the data required. The second method involved going into the field and collecting data directly from the shops. Four different coffee vendor’s data was obtained this way. In total, data from 17 coffee vendors in Richmond was used.
+
+
+## Results
+
+The first model shows how size is a relevant factor in the pricing of a coffee drink. The mena price of coffee is between 1.98 and 2.68.The coefficient of size is 0.05526 with a significant confidence interval of 0.02581 to 0.085. 
+
+
+```{r}
+model <-lm_basic(price ~ 1 + size, data=coffee)
+reg_table(model, level=0.95)
+
+```
+
+The model can also be interpreted graphically where there is a positive relationship between size and price. 
+
+```{r}
+ggplot(coffee, aes( size, price))+
+  geom_point()+ 
+  geom_smooth(method=lm)+
+  labs(title=" Price as a function of Size ", y= "Price", x= "Size")
+```
+
+
+Second, the price of coffee drinks is a function of the price of espresso. The model shows that lattes and cappuccinos are significantly affected by the price of espresso. However, since the predictive mean for coffee is between (-0.3751) and (0.233), there is no statistical evidence that the price of drip coffee is higher or lower than that of espresso. 
+
+
+```{r}
+coffee$espresso <- fct_relevel(coffee$type, "espresso")
+model<- lm_basic(price ~1 + espresso, data= coffee)
+reg_table(model, level=0.95)
+```
+
+The violin plot represents displays the distribution of prices of coffee by type of drink. From the graph, the mean price of coffee is slightly below the mean price of espresso. However, the are outliers which might be influenced by size. On the other hand, the mean price of a cappuccino or a latte is above the price of coffee and espresso. 
+
+```{r}
+ggplot(coffee, aes(type, price))+
+  geom_violin(aes(fill=type))+ 
+  labs(x= "Type of Coffee", y= "Price Distribution", title= "Price Distribution for Coffee in Richmond") +
+  geom_point(aes(y =price))
+
+
+```
+
+
+Last, coffee is the least expensive coffee drink. The model represents coffee in relationhsip with other drinks and size. All, other drinks have higher slopes that are statistically significant in comparison with drip coffee. 
+
+```{r}
+coffee$coffee <- fct_relevel(coffee$type, "coffee")
+model<- lm_basic(price ~1 + coffee+ size, data= coffee)
+reg_table(model, level=0.95)
+```
+
+
+
+```{r}
+ggplot(coffee, aes( size, price))+
+  geom_point()+ 
+  geom_smooth(aes(color=type),method=lm, se= FALSE)
+```
+
+
+
+
+## Conclusions
+
+The three models were used to test the hypothesis previously stated. First, there is a significant effect of the size of a drink on the price of a drink. Second, the price of coffee drinks was for the most part a function of the price of espresso. For lattes and cappuccinos, the price of espresso influenced the price of the drink. However, for drip coffee, there was no particular relationship. This can be explained by the composition of lattes and cappuccinos. Both drinks use espresso shots. On the other hand, drip coffee (not Americanos) does not use espresso shots. 
+Third, American coffee is the least expensive coffee drink which can be explained by the machinery and difficulty of making espresso compared to drip coffee. It can also be influenced by the type of coffee required to make an espresso. 
+
+To conclude, the coffee industry in Richmond is an accurate representation of the coffee industry in the United States. The National Coffee Association and the Specialty Coffee Association of America conducted a survey where they gathered data regarding coffee consumption. The results from the survey found that the average price of an espresso based drink in the United States is $3.45. This value is similar to the prediction of the model which showed that the average price of a cappuccino and a latte is around $3.48. Similarly, the average cost of brewed coffee in the United States is of $2.38 and that of Richmond is $2.37.
+
+## References
+
+Coffee Statistics. (n.d.). Retrieved from http://www.e-importz.com/coffee-statistics.php
+
+
+
