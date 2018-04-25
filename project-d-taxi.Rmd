@@ -41,7 +41,7 @@ nyc_cord <- filter(taxi, dropoff_longitude > -75, dropoff_longitude < -65, dropo
 
 taxi_nta_pickup <-left_join(taxi, nta_code, by = c("pickup_NTACode" = "ntacode"))
 
-taxi_nta <- left_join(taxi_nta_pickup, nta_code, by= c("dropoff_NTACode" = "ntacode"), suffix = c("_pickup", "_dropoff"))
+taxi_nta <- left_join(taxi_nta_pickup, nta_code, by= c("dropoff_NTACode" = "ntacode"), suffix = c("_pickup", "_dropoff"), tip_percent < 2)
 
 arrival_laguardia <- filter(taxi_nta, zone_pickup == "LaGuardia Airport" ,pickup_longitude > -74.8, pickup_longitude < -73.2, pickup_latitude < 42, pickup_latitude > 40.76)
 
@@ -170,26 +170,23 @@ model <- lm_basic(tip_percent*100 ~ 1 +borough_dropoff +fare_amount  , data = ta
  reg_table(model,level= 0.95) 
 ```
 
-
-On the following graph, the previously mentioned trend is visible. When the total fare is under 20 dollars, the percentage tip is 20 to 25 percent. 
+On the following graph, the previously mentioned trend is visible. When the total fare is under 20 dollars, the percentage tip is primarily  20 to 25 percent. Moreover, when the entire fare is between 20 to 40 dollars, the most common tip is between 15 to 20 percent. 
 
 
 ```{r}
-ggplot(taxi_nta_summary, aes( fare_amount_mean, tip_amount_mean)) +
-  geom_point(aes(size=n, color = tip_bin), alpha= 0.6) +
-  geom_point(data= taxi_nta_mnh_summary, aes(size=n, color = tip_bin)) +
-  scale_color_viridis(discrete = TRUE) +
+
+ggplot(taxi_nta_summary, aes(fare_amount_mean))+
+  geom_density(aes(fill= tip_bin), alpha= 0.3)+
   theme_minimal()+
-  labs(title= "Distribution of Tips for All Zones NYC Rides", x="Fare Amount", y= "Tip Amount") +
-   annotate("text", x= 12.46, y=2.56, label= "Chinatown", size=3)+
-  annotate("text", x= 40, y=9 , label= "La Guardia/JFK", size=3) +
-  annotate("text", x= 39, y=8 , label= "Ocean Parkway South", size= 3) +
-   annotate("text", x= 68, y=17.5 , label= "Great Kills", size= 3)
+  labs(title= "Distribution of Tips for NYC Rides", x="Fare Amount", fill= "Percentage Tip")
+
+
+
 ```
 
-Next, the percentage tip by borough is analyzed by looking at the five boroughs in New York City; Bronx, Brooklyn, Manhattan, Queens, and Staten Island. Out of these, Manhattan's overall tip is the lowest with 0.86 percent less than the average percentage tip for the city. On the other hand, Queens and Staten Island are both have significantly higher percentage tips of 2.81 percent and 8.25 percent above the city's mean. 
+Next, the percentage tip by borough was analyzed by looking at the five boroughs in New York City; Bronx, Brooklyn, Manhattan, Queens, and Staten Island. Out of these, Manhattan's overall tip is the lowest with 0.86 percent less than the average percentage tip for the city. On the other hand, Queens and Staten Island both have significantly higher percentage tips of 2.81 percent and 8.25 percent above the city's mean. 
 
-Furthermore, Manhattan was analyzed since it has a smaller percentage tip than the overall mean and has significantly more rides than the other zones. The following plot displays all taxi rides that were dropped off in the Manhattan area by zone.  The mean percentage tip is 20 to 25 percent for rides that are on average lower than 17.5 dollars. 
+Furthermore, Manhattan was analyzed since it has a smaller mean percentage tip and has significantly more rides than the other zones. The following plot displays all taxi rides that were dropped off in the Manhattan area by zone.  As displayed in yellow, the mean percentage tip is 20 to 25 percent for rides that are lower than 17.5 dollars. 
 
 
 ```{r}
@@ -202,14 +199,15 @@ ggplot(taxi_nta_mnh_summary, aes( fare_amount_mean, tip_amount_mean)) +
   geom_point(aes(size=n, color = tip_bin)) +
   scale_color_viridis(discrete = TRUE) +
   theme_minimal()+
+  geom_smooth(method="lm", color= "gray")+
   labs(title= "Distribution of Tips for All Manhattan Zone Dropoffs", x="Fare Amount", y= "Tip Amount" , legend= "Percentage Tip")+
   annotate("text", x= 12.46, y=2.53, label= "Chinatown", size= 3)+
    annotate("text", x= 12.44, y=2.3, label= "Lower East Side", size =3)
 ```
 
-inally, by looking only at rides leaving La Guardia Airport, the percentage tip could be compared to the overall rides. This limited the influence of other variables that could indirectly be influencing the percentage of tip. By segmenting the Manhattan area into five neighborhoods, we found that the Upper West Side has the highest percentage tip. However, it has a total median fare is $32.06 which is not the lowest in the area. The actual lowest mean fare for rides coming from La Guardia is for Uptown Manhattan, which makes sense given the proximity of the neighborhood to the airport. However, Uptown has a percentage tip of 22.19%, which is the lowest among the Manhattan neighborhoods. 
+Finally, by looking only at rides leaving La Guardia Airport with a Manhattan destination, the percentage tip by neighborhood and zone was analyzed. This limited the impact of other variables that could indirectly be influencing the percentage of tip. By segmenting the Manhattan area into five neighborhoods, we found that the Upper West Side has the highest percentage tip. However, it has a total median fare of $32.06 which is not the lowest in the area. The actual lowest mean fare for rides coming from La Guardia is for Uptown Manhattan (which makes sense given the proximity of the neighborhood to the airport). However, Uptown has a percentage tip of 22.19 percent, which is the lowest among the Manhattan neighborhoods. 
 
-The graph below shows the distribution of tips for rides from La Guardia Airport into zones in Manhattan. Battery Park stands out since it has the highest average fare price for all zones possibly explained by its location. On the other hand, East Harlem North has the lowest average fare price and the highest percentage of tip. 
+The graph below shows the distribution of tips for rides from La Guardia Airport into zones in Manhattan. Battery Park, located at the southern tip of the Manhattan island, stands out since it has the highest average fare price for all zones. On the other hand, East Harlem North has the lowest average fare price and the highest percentage of tip. 
 
 
 ```{r}
@@ -219,7 +217,7 @@ ggplot(zone_pickup_summary, aes( fare_amount_mean, tip_amount_mean)) +
   annotate("text", x = 21.3, y = 5.7, label = "East Harlem North", size=3 ) + 
   scale_color_viridis() +
   theme_minimal() +
-  labs(title= "Distribution of Tips for Rides Starting From La Guardia", x="Fare Amount", y= "Tip Amount" , legend= "Percentage Tip")
+  labs(title= "Distribution of Tips for Rides From La Guardia to Manhattan", x="Fare Amount", y= "Tip Amount" , legend= "Percentage Tip", fill= "Tip Percent")
 ```
 
 
