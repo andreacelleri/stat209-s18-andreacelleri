@@ -1,0 +1,243 @@
+---
+title: "Looking for better tips? Go to... "
+author: "Andrea Celleri "
+output: html_document
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(out.width = "100%")
+knitr::opts_chunk$set(dpi = 300)
+
+knitr::opts_chunk$set(fig.width = 7)
+knitr::opts_chunk$set(fig.height = 4)
+
+
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(ggmap)
+library(viridis)
+library(forcats)
+library(smodels)
+```
+
+
+```{r}
+taxi <- read_csv("https://statsmaths.github.io/stat_data/nyc_taxi_50.csv")
+nta_code <- read_csv("https://raw.githubusercontent.com/toddwschneider/nyc-taxi-data/master/data/taxi-zone-lookup-with-ntacode.csv")
+
+```
+
+
+```{r}
+
+taxi$tip_percent <- taxi$tip_amount / taxi$fare_amount
+taxi <- filter(taxi, tip_percent < 2)
+
+nyc_cord <- filter(taxi, dropoff_longitude > -75, dropoff_longitude < -65, dropoff_latitude < 42, dropoff_latitude > 40  )
+
+taxi_nta_pickup <-left_join(taxi, nta_code, by = c("pickup_NTACode" = "ntacode"))
+
+taxi_nta <- left_join(taxi_nta_pickup, nta_code, by= c("dropoff_NTACode" = "ntacode"), suffix = c("_pickup", "_dropoff"))
+
+arrival_laguardia <- filter(taxi_nta, zone_pickup == "LaGuardia Airport" ,pickup_longitude > -74.8, pickup_longitude < -73.2, pickup_latitude < 42, pickup_latitude > 40.76)
+
+departure_laguardia_mnh <- filter(taxi_nta, dropoff_NTACode == "QN98",zone_dropoff == "LaGuardia Airport" , dropoff_longitude > -74.8, dropoff_longitude < -73.2, dropoff_latitude < 42, dropoff_latitude > 40.76 , borough_pickup =="Manhattan")
+
+departure_laguardia <- filter(taxi_nta, dropoff_NTACode == "QN98",zone_dropoff == "LaGuardia Airport" , dropoff_longitude > -74.8, dropoff_longitude < -73.2, dropoff_latitude < 42, dropoff_latitude > 40.76 )
+
+```
+
+```{r}
+arrival_laguardia_mnh <- filter(arrival_laguardia, borough_dropoff =="Manhattan")
+
+zone_pickup_summary <- group_summarize(arrival_laguardia_mnh, zone_dropoff)
+
+arrivals_laguardia_uptown <- filter(arrival_laguardia_mnh, zone_dropoff %in% c( "Marble Hill", "Inwood", "Washigton Heights", "West Harlem", "Hamilton Heights", "Manhattanville", "Morningside Heights", "Central Harlem", "Harlem", "Astor Row", "Sugar Hill", "Marcus Garvey Park", "Le Petit Senegal", "East Harlem", "Upper East Side", "Lenox Hill", "Carnegie Hill", "Yorkville", "Upper West Side", "Lincoln Square", "Morningside Heights", "Washington Heights North", "Washington Heights South", "Inwood", "Inwood Hill Park", "Highbridge Park", "Hamilton Heights", "Central Harlem North", "East Harlem North", "Morningside Heights"))
+
+zone_pickup_summary_uptown <- group_summarize(arrivals_laguardia_uptown, zone_dropoff)
+
+
+arrivals_laguardia_midtown <- filter(arrival_laguardia_mnh, zone_dropoff %in% c("Midtown", "Columbus Circle", "Sutton Place", "Rickefeller Center", "Diamond District", "Trutle Bay", "Midtown East", "Midtown", "Tudon City", "Little Brazil" , "Hudson Yards", "Midtown West", "Garment District", "Koreatown", "Murray Hill", "Tenderloin", "Madison Sq", "Clinton West", "East Chelsea", "Flatiron", "Garment District", "Union sq" , "Kips Bay", "Murray Hill", "West Chelsea/Hudson Yards", "Sutton Place/Turtle Bay North", "UN/Turtle Bay South","Sutton Place/Turtle Bay North", "Penn Station/Madison Sq West", "Times Sq/Theatre District", "Gramercy", "Union Sq", "Midtown North", "Midtown South"))
+
+
+zone_pickup_summary_midtown <- group_summarize(arrivals_laguardia_midtown, zone_dropoff)
+
+arrivals_laguardia_downtown <- filter(arrival_laguardia_mnh, zone_dropoff %in% c("East Village", "Alphabet City", "TriBeCa/Civic Center", " Little Italy/NoLiTa", "SoHo", "Hudson Sq", " Lower East Side", "Chinatown", "seaport","Two Bridges/Seward Park", "World Trade Center", "Financial District South", "Financial District North", "Battery Park City", "Battery Park", "Greenwich Village North", "Greenwich Village South", "Meatpacking/West Village West", "West Village", "Seaport", "Lower East Side", "Little Italy/NoLiTa"))
+
+zone_pickup_summary_downtown <- group_summarize(arrivals_laguardia_downtown, zone_dropoff)
+
+arrivals_laguardia_uppereast <- filter(arrival_laguardia_mnh, zone_dropoff %in% c("Yorkville East", "Upper East Side North", "Upper East Side South", "Yorkville West", "East Harlem South", "Lenox Hill West", "Lenox Hill East"))
+
+zone_pickup_summary_uppereast <- group_summarize(arrivals_laguardia_uppereast, zone_dropoff)
+
+arrivals_laguardia_upperwest <- filter(arrival_laguardia_mnh, zone_dropoff %in% c( "Lincoln Square East", "Lincoln Square West","Bloomingdale",  "Upper West Side North", "Upper West Side South", "Manhattan Valley", "Bloomingdale"))
+
+zone_pickup_summary_upperewest <- group_summarize(arrivals_laguardia_upperwest, zone_dropoff)
+
+```
+
+```{r}
+taxi_nta_mnh <- filter(taxi_nta, borough_dropoff == "Manhattan", tip_percent < Inf, tip_percent < 2)
+
+taxi_nta_queens <- filter(taxi_nta, borough_dropoff == "Queens", tip_percent < Inf, tip_percent < 2)
+taxi_nta_queens_summary <- group_summarize(taxi_nta_queens, zone_dropoff)
+
+taxi_nta_brk <- filter(taxi_nta, borough_dropoff == "Brooklyn", tip_percent < Inf, tip_percent < 2)
+taxi_nta_brk_summary <- group_summarize(taxi_nta_brk, zone_dropoff)
+
+
+
+taxi_nta <- filter(taxi_nta, tip_percent < Inf)
+
+taxi_nta_mnh_summary <- group_summarize(taxi_nta_mnh, zone_dropoff)
+
+
+
+taxi_nta_mnh_uptown <- filter(taxi_nta_mnh, zone_dropoff %in% c( "Marble Hill", "Inwood", "Washigton Heights", "West Harlem", "Hamilton Heights", "Manhattanville", "Morningside Heights", "Central Harlem", "Harlem", "Astor Row", "Sugar Hill", "Marcus Garvey Park", "Le Petit Senegal", "East Harlem", "Upper East Side", "Lenox Hill", "Carnegie Hill", "Yorkville", "Upper West Side", "Lincoln Square", "Morningside Heights", "Washington Heights North", "Washington Heights South", "Inwood", "Inwood Hill Park", "Highbridge Park", "Hamilton Heights", "Central Harlem North", "East Harlem North", "Morningside Heights"))
+
+taxi_nta_mnh_summary_uptown <- group_summarize(taxi_nta_mnh_uptown, zone_dropoff)
+
+
+taxi_nta_mnh_midtown <- filter(taxi_nta_mnh, zone_dropoff %in% c("Midtown", "Columbus Circle", "Sutton Place", "Rickefeller Center", "Diamond District", "Trutle Bay", "Midtown East", "Midtown", "Tudon City", "Little Brazil" , "Hudson Yards", "Midtown West", "Garment District", "Koreatown", "Murray Hill", "Tenderloin", "Madison Sq", "Clinton West", "East Chelsea", "Flatiron", "Garment District", "Union sq" , "Kips Bay", "Murray Hill", "West Chelsea/Hudson Yards", "Sutton Place/Turtle Bay North", "UN/Turtle Bay South","Sutton Place/Turtle Bay North", "Penn Station/Madison Sq West", "Times Sq/Theatre District", "Gramercy", "Union Sq", "Midtown North", "Midtown South"))
+
+taxi_nta_mnh_summary_midtown <- group_summarize(taxi_nta_mnh_midtown, zone_dropoff)
+
+
+taxi_nta_mnh_downtown <- filter(taxi_nta_mnh, zone_dropoff %in% c("East Village", "Alphabet City", "TriBeCa/Civic Center", " Little Italy/NoLiTa", "SoHo", "Hudson Sq", " Lower East Side", "Chinatown", "seaport","Two Bridges/Seward Park", "World Trade Center", "Financial District South", "Financial District North", "Battery Park City", "Battery Park", "Greenwich Village North", "Greenwich Village South", "Meatpacking/West Village West", "West Village", "Seaport", "Lower East Side", "Little Italy/NoLiTa"))
+
+taxi_nta_mnh_downtown <- group_summarize(taxi_nta_mnh_downtown, zone_dropoff)
+
+
+taxi_nta_mnh_uppereast <- filter(taxi_nta_mnh, zone_dropoff %in% c("Yorkville East", "Upper East Side North", "Upper East Side South", "Yorkville West", "East Harlem South", "Lenox Hill West", "Lenox Hill East"))
+
+taxi_nta_mnh_summary_uppereast <- group_summarize(taxi_nta_mnh_uppereast, zone_dropoff)
+
+
+taxi_nta_mnh_upperwest <- filter(taxi_nta_mnh, zone_dropoff %in% c( "Lincoln Square East", "Lincoln Square West","Bloomingdale",  "Upper West Side North", "Upper West Side South", "Manhattan Valley", "Bloomingdale"))
+```
+
+```{r}
+taxi_nta_summary <- group_summarize(taxi_nta, zone_dropoff)
+
+taxi_nta_summary$tip_bin <- "0-15"
+taxi_nta_summary$tip_bin[between(taxi_nta_summary$tip_percent_mean, .15, .20)] <- "15-20"
+taxi_nta_summary$tip_bin[between(taxi_nta_summary$tip_percent_mean, .20, .25)] <- "20-25"
+taxi_nta_summary$tip_bin[between(taxi_nta_summary$tip_percent_mean, .25, Inf)] <- "25+"
+
+taxi_nta_mnh_summary$tip_bin <- "0-15"
+taxi_nta_mnh_summary$tip_bin[between(taxi_nta_mnh_summary$tip_percent_mean, .15, .20)] <- "15-20"
+taxi_nta_mnh_summary$tip_bin[between(taxi_nta_mnh_summary$tip_percent_mean, .20, .25)] <- "20-25"
+taxi_nta_mnh_summary$tip_bin[between(taxi_nta_mnh_summary$tip_percent_mean, .25, Inf)] <- "25+"
+
+zone_pickup_summary$tip_bin <- "0-15"
+zone_pickup_summary$tip_bin[between(zone_pickup_summary$tip_percent_mean, .15, .21)] <- "15-21"
+zone_pickup_summary$tip_bin[between(zone_pickup_summary$tip_percent_mean, .21, .25)] <- "21-25"
+zone_pickup_summary$tip_bin[between(zone_pickup_summary$tip_percent_mean, .25, Inf)] <- "25+"
+
+departure_laguardia_summary <- group_summarize(departure_laguardia, zone_pickup)
+departure_laguardia_mnh_summary <- group_summarize(departure_laguardia_mnh, zone_pickup)
+
+departure_laguardia_summary$tip_bin <- "0-15"
+departure_laguardia_summary$tip_bin[between(departure_laguardia_summary$tip_percent_mean, .15, .20)] <- "15-20"
+departure_laguardia_summary$tip_bin[between(departure_laguardia_summary$tip_percent_mean, .20, .21)] <- "20-21"
+departure_laguardia_summary$tip_bin[between(departure_laguardia_summary$tip_percent_mean, .21, .25)] <- "21-25"
+departure_laguardia_summary$tip_bin[between(departure_laguardia_summary$tip_percent_mean, .25, Inf)] <- "25+"
+
+departure_laguardia_mnh_summary$tip_bin <- "0-15"
+departure_laguardia_mnh_summary$tip_bin[between(departure_laguardia_mnh_summary$tip_percent_mean, .15, .20)] <- "15-20"
+departure_laguardia_mnh_summary$tip_bin[between(departure_laguardia_mnh_summary$tip_percent_mean, .20, .21)] <- "20-21"
+departure_laguardia_mnh_summary$tip_bin[between(departure_laguardia_mnh_summary$tip_percent_mean, .21, .25)] <- "21-25"
+departure_laguardia_mnh_summary$tip_bin[between(departure_laguardia_mnh_summary$tip_percent_mean, .25, Inf)] <- "25+"
+```
+
+```{r}
+
+```
+
+According to an article by Trip Savvy, drivers in New York City should be tipped an average of 10 to 20 percent of the total cost of a ride. Most of the time, this amount is automatically calculated based on the cost of the fare. However, this value is not fixed and can change if the expectations of the passenger are not meet by the quality of the overall ride. 
+
+To look deeper into what variables impact the total percentage tip for a New York City taxi ride, the taxi dataset was analyzed. The data show that in contrast with the advice, the overall percentage of tip for taxi rides in New York City is above 20 percent. Furthermore, percentage tip has a negative correlation with the total cost of the trip and can varies by borough. ocation.
+ 
+
+The dataset was analyzed in three distinct ways; in a macro level, by borough level, and by looking at rides from La Guardia Airport. First, at a macro level, the average percentage tip for taxi rides in the entire New York City area was off 24.50 percent of the total trip. There is an overall decreasing trend of the percentage tip as the total cost of the ride increases. A possible explanation for this is customers paying with cash for rides under 20 dollars round up their tip to avoid change. Consequently,  for lower total fare amount, rounding up to the nearest dollar has a more significant influence on the overall percentage tip than for more substantial fares. 
+
+```{r}
+model <- lm_basic(tip_percent*100 ~ 1 +borough_dropoff +fare_amount  , data = taxi_nta)
+ reg_table(model,level= 0.95) 
+```
+
+
+On the following graph, the previously mentioned trend is visible. When the total fare is under 20 dollars, the percentage tip is 20 to 25 percent. Furthermore, [assed 40 dollars the mean percentage tip is less than 15 percent for all zones. 
+
+
+```{r}
+ggplot(taxi_nta_summary, aes( fare_amount_mean, tip_amount_mean)) +
+  geom_point(aes(size=n, color = tip_bin), alpha= 0.2) +
+  geom_point(data= taxi_nta_mnh_summary, aes(size=n, color = tip_bin)) +
+  scale_color_viridis(discrete = TRUE) +
+  theme_minimal()+
+  labs(title= "Distribution of Tips for All Zones NYC Rides", x="Fare Amount", y= "Tip Amount") +
+   annotate("text", x= 12.46, y=2.56, label= "Chinatown", size=3)+
+  annotate("text", x= 40, y=9 , label= "La Guardia/JFK", size=3) +
+  annotate("text", x= 39, y=8 , label= "Ocean Parkway South", size= 3) +
+   annotate("text", x= 68, y=17.5 , label= "Great Kills", size= 3)
+```
+
+New York City is segmented into five boroughs; Bronx, Brooklyn, Manhattan, Queens, and Staten Island. Out of these, Manhattan overall tip in percentage is 0.86 percent less than the total percentage tip. On the other hand, Queens and Staten Island are both significantly higher percentage tips of 2.81 percent and 8.25 percent. 
+
+Furthermore, Manhattan was analyzed since it has a smaller percentage tip than the overall mean and has significantly more rides than the other zones. The following plot displays all taxi rides that were dropped off in the Manhattan area by zone.  The mean percentage tip is 20 to 25 percent for rides that are on average lower than 17.5 dollars. 
+
+
+```{r}
+taxi_nta_mnh_summary$tip_bin <- "0-15"
+taxi_nta_mnh_summary$tip_bin[between(taxi_nta_mnh_summary$tip_percent_mean, .15, .20)] <- "15-20"
+taxi_nta_mnh_summary$tip_bin[between(taxi_nta_mnh_summary$tip_percent_mean, .20, .25)] <- "20-25"
+taxi_nta_mnh_summary$tip_bin[between(taxi_nta_mnh_summary$tip_percent_mean, .25, Inf)] <- "25+"
+
+ggplot(taxi_nta_mnh_summary, aes( fare_amount_mean, tip_amount_mean)) +
+  geom_point(aes(size=n, color = tip_bin)) +
+  scale_color_viridis(discrete = TRUE) +
+  theme_minimal()+
+  labs(title= "Distribution of Tips for All Manhattan Zone Dropoffs", x="Fare Amount", y= "Tip Amount" , legend= "Percentage Tip")+
+  annotate("text", x= 12.46, y=2.53, label= "Chinatown", size= 3)+
+   annotate("text", x= 12.44, y=2.3, label= "Lower East Side", size =3)
+```
+
+Finally, by looking only at rides leaving La Guardia Airport, the percentage tip could be compared to the overall rides. This limited the influence of other variables that could indirectly be influencing the percentage of tip. By segmenting the Manhattan area into five neighborhoods, we found that the Upper West Side has the highest percentage tip. However, it has a total median fare is $32.06 which is not the lowest in the area. The lowest mean fare is for Uptown Manhattan which has the lowest percentage tip from all the neighborhoods. 
+
+
+```{r}
+ggplot(zone_pickup_summary, aes( fare_amount_mean, tip_amount_mean)) +
+  geom_point(aes(size=n, color=tip_percent_mean)) +
+  annotate("text", x = 41.8, y = 9.16, label = "Battery Park" , size= 3) +
+  annotate("text", x = 21.3, y = 5.7, label = "East Harlem North", size=3 ) + 
+  scale_color_viridis() +
+  theme_minimal() +
+  labs(title= "Distribution of Tips for Rides Starting From La Guardia", x="Fare Amount", y= "Tip Amount" , legend= "Percentage Tip")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
