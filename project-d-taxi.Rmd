@@ -220,6 +220,7 @@ ggplot(zone_pickup_summary, aes( fare_amount_mean, tip_amount_mean)) +
 ```
 
 
+Much more time is needed to understand what drives tips for New York City taxi rides. However, from this short analysis we can conclude that in most cases, the higher the cost of the ride the lower the percentage of tips is. Furthermore, a taxi dropping of customers in Queens, and Staten Island tend to receive higher tips. In Manhattan, the Upper West Side might provide higher tips (specially coming from La Guardia Airport). Yet, La Guardia rides might have a large percentage of tourists that do not represent the New York population. 
 
 
 
